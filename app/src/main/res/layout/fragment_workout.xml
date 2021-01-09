@@ -297,7 +297,7 @@
             app:srcCompat="@drawable/ic_icon_alarm" />
 
         <ToggleButton
-            android:id="@+id/tbtn_add_minus2"
+            android:id="@+id/btn_add_lunch"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"

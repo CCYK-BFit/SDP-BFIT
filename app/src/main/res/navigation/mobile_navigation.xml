@@ -15,7 +15,7 @@
         android:id="@+id/navigation_calories"
         android:name="com.example.sdp_bfit.calories.CaloriesFragment"
         android:label="Calories"
-        tools:layout="@layout/fragment_calories" />
+        tools:layout="@layout/fragment_calories_main" />
 
 
     <fragment

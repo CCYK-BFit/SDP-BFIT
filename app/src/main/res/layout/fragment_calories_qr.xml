@@ -53,7 +53,7 @@
 
 
         <ToggleButton
-            android:id="@+id/tbtn_add_minus"
+            android:id="@+id/btn_add_bfast"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="15dp"
