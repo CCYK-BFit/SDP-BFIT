@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <EditText
-            android:id="@+id/editTextMeal"
+            android:id="@+id/editTextMealbfast"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
@@ -85,7 +85,7 @@
             android:ems="10"
             android:hint="Name of the meal"
             android:inputType="textPersonName"
-            android:text="Oat meal"
+
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +103,7 @@
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextMeal" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealbfast" />
 
         <EditText
             android:id="@+id/editTextServingSize"
