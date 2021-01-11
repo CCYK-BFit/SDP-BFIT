@@ -64,13 +64,14 @@ public class QRScanningActivity extends AppCompatActivity {
                             int valueType = barcode.getValueType();
                             //get information from barcode
                             //can check out API reference for more value type
-                            switch(valueType){
-                                case Barcode.TYPE_URL:
-                                    String title = barcode.getUrl().getTitle();
-                                    String url = barcode.getUrl().getUrl();
-                                    break;
-
-                            }
+//                            switch(valueType){
+//                                case Barcode.TYPE_URL:
+//                                    String title = barcode.getUrl().getTitle();
+//                                    String url = barcode.getUrl().getUrl();
+//                                    break;
+//
+//                            }
+                            Toast.makeText(QRScanningActivity.this, rawValue, Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
