@@ -1,11 +1,15 @@
 package com.example.sdp_bfit.calories;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -16,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.sdp_bfit.MainActivity;
 import com.example.sdp_bfit.R;
 
 public class CaloriesFragment extends Fragment {
@@ -39,15 +44,15 @@ public class CaloriesFragment extends Fragment {
         btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
         btn_add_snack = v.findViewById(R.id.btn_add_snack);
         btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
-        final TextView textView = v.findViewById(R.id.txt_calories);
+         TextView textView = v.findViewById(R.id.calories);
         //button
         btn_scan_bfast = v.findViewById(R.id.btn_scan_bfast);
         btn_scan_lunch = v.findViewById(R.id.btn_scan_lunch);
         btn_scan_snack = v.findViewById(R.id.btn_scan_snack);
         btn_scan_dinner= v. findViewById(R.id.btn_scan_dinner);
         //testing
-        TextView textView1 = v.findViewById(R.id.sampletxt);
-        textView1.setText("hi");
+//        textView.setText("hI");
+
         //pane
         card_bfast = v.findViewById(R.id.card_breakfast);
         card_lunch = v.findViewById(R.id.card_lunch);
@@ -59,14 +64,28 @@ public class CaloriesFragment extends Fragment {
 
             }
         });
+        btn_scan_bfast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+//                    Intent intent = new Intent();
+//                    intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+//                    startActivity(intent);
+                    enableCamera();
 
+                }
+                catch(Exception e){
+                    Toast.makeText(container.getContext(), "Error while trying to access your camera", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 //
         btn_add_Bfast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){
                     //show calories from
-                    textView1.setText("The button is clicked");
+
                     insertNestedFragment();
 //                        getView().findViewById(R.id.lunch_fragment_container).setVisibility(View.INVISIBLE);
 //                        getView().findViewById(R.id.card_lunch).setVisibility(View.INVISIBLE);
@@ -76,7 +95,7 @@ public class CaloriesFragment extends Fragment {
                 }
                 else{
                     //hide calories form
-                    textView1.setText("And now it is unclick");
+
                     removeNestedFragment(BfastTag);
 //                    getView().findViewById(R.id.lunch_fragment_container).setVisibility(View.VISIBLE);
 //                    getView().findViewById(R.id.card_lunch).setVisibility(View.VISIBLE);
@@ -203,5 +222,12 @@ public class CaloriesFragment extends Fragment {
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.hide(fragment).commit();
     }
-}
+    private void enableCamera(){
+
+            Intent intent = new Intent(getActivity(), CameraActivity.class);
+            startActivity(intent);
+        }
+
+    }
+
 
