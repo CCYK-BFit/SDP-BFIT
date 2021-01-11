@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "487583302094",
+    "project_id": "sdp-bfit",
+    "storage_bucket": "sdp-bfit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487583302094:android:8c09adf73e1f91354b2b9f",
+        "android_client_info": {
+          "package_name": "com.example.sdp_bfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487583302094-rfsmpdh7afn9u8uti15idcrbagpbjgla.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4vNF183v0H6MhJuMQ5cTEpPfZrchhhXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487583302094-rfsmpdh7afn9u8uti15idcrbagpbjgla.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

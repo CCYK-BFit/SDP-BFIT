@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <EditText
-            android:id="@+id/editTextMeal"
+            android:id="@+id/editTextMealDinner"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
@@ -102,7 +102,7 @@
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextMeal" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealDinner" />
 
         <EditText
             android:id="@+id/editTextServingSize"
