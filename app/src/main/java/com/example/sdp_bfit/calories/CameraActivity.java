@@ -51,7 +51,7 @@ public class CameraActivity extends AppCompatActivity {
     private TextView textView;
 
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
-
+    public static String UPCValue ;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +145,7 @@ public class CameraActivity extends AppCompatActivity {
 
                                                     Toast.makeText(CameraActivity.this, "Qr code detected", Toast.LENGTH_LONG).show();
                                                     Toast.makeText(CameraActivity.this, rawValue, Toast.LENGTH_LONG).show();
-
+                                                        UPCValue = rawValue;
 //                                                    txt.setText(url);
                                                     break;
 
