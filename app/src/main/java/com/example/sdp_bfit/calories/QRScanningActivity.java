@@ -33,7 +33,7 @@ import com.google.mlkit.vision.common.InputImage;
 import java.util.List;
 
 public class QRScanningActivity extends AppCompatActivity {
-
+    //obsolete
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,9 @@ public class QRScanningActivity extends AppCompatActivity {
 //                                    break;
 //
 //                            }
+
                             Toast.makeText(QRScanningActivity.this, rawValue, Toast.LENGTH_SHORT).show();
+
                         }
                     }
                 })
