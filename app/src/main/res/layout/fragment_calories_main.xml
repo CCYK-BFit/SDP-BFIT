@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BlankFragment">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/caloriesMain"
@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@color/bggrey"
         android:paddingBottom="100dp">
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_black_view"
@@ -53,6 +55,21 @@
                 app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
                 app:layout_constraintStart_toStartOf="@+id/calories"
                 app:layout_constraintTop_toBottomOf="@+id/calories" />
+
+            <ToggleButton
+                android:id="@+id/btnDropdown"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/tbtn_add_minus"
+                android:textOff=''
+                android:textOn=''
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.782"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.618" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
@@ -152,7 +169,9 @@
                         android:id="@+id/bfast_fragment_container"
                         android:layout_width="match_parent"
                         android:layout_height="666dp"
-                        android:layout_marginTop="7dp" />
+                        android:layout_marginTop="7dp" >
+
+                    </FrameLayout>
 
 
         </androidx.core.widget.NestedScrollView>
@@ -184,7 +203,9 @@
                 android:id="@+id/snack_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="666dp"
-                android:layout_marginTop="7dp" />
+                android:layout_marginTop="7dp" >
+
+            </FrameLayout>
 
 
         </androidx.core.widget.NestedScrollView>
@@ -200,7 +221,9 @@
                 android:id="@+id/dinner_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="666dp"
-                android:layout_marginTop="7dp" />
+                android:layout_marginTop="7dp" >
+
+            </FrameLayout>
 
 
         </androidx.core.widget.NestedScrollView>
@@ -423,6 +446,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="679dp"
+            tools:layout_editor_absoluteY="603dp"
+            tools:listitem="@layout/recycler_view_item_2" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
