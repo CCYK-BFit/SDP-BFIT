@@ -7,9 +7,11 @@ import android.graphics.Rect;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Size;
 import android.view.OrientationEventListener;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,14 @@ import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.sdp_bfit.MainActivity;
 import com.example.sdp_bfit.R;
@@ -41,20 +50,39 @@ import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 import com.google.mlkit.vision.barcode.BarcodeScanning;
 import com.google.mlkit.vision.common.InputImage;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.Callback;
+import okhttp3.EventListener;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 public class CameraActivity extends AppCompatActivity {
     private PreviewView previewView;
     private TextView textView;
-
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     public static String UPCValue ;
+    public static String foodLabel , kcal;
+    private CameraActivityListener listener;
+
+    //not working
+    public interface CameraActivityListener{
+        void onMealDataReceived(String mealName,String mealCal);
+    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
+        //find fragment
+
         setContentView(R.layout.activity_camera);
         previewView = findViewById(R.id.previewView);
         //bind the camera lifecyle to its own lifecycle owner,so no need to worry about opening/closing the camera
@@ -143,10 +171,19 @@ public class CameraActivity extends AppCompatActivity {
 // load the text view
 //                                                    EditText txt = main.findViewById(R.id.editTextMealbfast);
 
-                                                    Toast.makeText(CameraActivity.this, "Qr code detected", Toast.LENGTH_LONG).show();
-                                                    Toast.makeText(CameraActivity.this, rawValue, Toast.LENGTH_LONG).show();
-                                                        UPCValue = rawValue;
-//                                                    txt.setText(url);
+                                                    Toast.makeText(CameraActivity.this, "Bar code: "+rawValue, Toast.LENGTH_LONG).show();
+
+                                                            UPCValue = rawValue;
+                                                        //pass the UPC VALUE and send request to RapidAPI
+                                                        if (UPCValue != null)  {
+
+                                                            APIcon();
+                                                            Toast.makeText(CameraActivity.this, "Name:" + foodLabel + "Calories: " + kcal, Toast.LENGTH_SHORT).show();
+
+//                                                            listener.onMealDataReceived(foodLabel,kcal);
+                                                           //TO-DO: Naviagte back to calorie main page
+                                                        }
+
                                                     break;
 
 //                                            }
@@ -201,6 +238,81 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    public void APIcon(){
+//        CaloriesViewModel caloriesViewModel = new ViewModelProvider(this).get(CaloriesViewModel.class);
 
+        //create new thread to run network call
+        //u cannot run network call or main thread bcos ur activity risk being killed by  the os
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        HttpUrl.Builder urlBuilder = HttpUrl.parse("https://edamam-food-and-grocery-database.p.rapidapi.com/parser?")
+                .newBuilder();
+        urlBuilder.addQueryParameter("upc",UPCValue);
+        String url = urlBuilder.build().toString();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url).get()
+                .addHeader("x-rapidapi-key", "72ee5eb339msh2147fe6de6ac3bfp13e0a2jsnbe315dc6079a")
+                .addHeader("x-rapidapi-host", "edamam-food-and-grocery-database.p.rapidapi.com")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                final String myResponse = response.body().string();
+
+                CameraActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            //main body of the json result
+                            JSONObject json = new JSONObject(myResponse);
+//                                String mealName =json.getJSONObject("nutrients").getString("ENERC_KCAL");
+                            //to retrieve nested json object: foodlabel
+                            JSONArray hints = json.getJSONArray("hints");
+                            JSONObject result = hints.getJSONObject(0);
+                            JSONObject food = result.getJSONObject("food");
+                            foodLabel = food.getString("label");
+                            //to retrieve energy kcal
+                            JSONObject nutrients = food.getJSONObject("nutrients");
+                             kcal = nutrients.getString("ENERC_KCAL");
+                            //TO-DO: PASS FOOD NAME AND KCAL TO TEXTVIEW INSIDE FORM FRAGMENT
+
+//                            caloriesViewModel.mealName.setValue(foodLabel);
+//                            caloriesViewModel.mealCal.setValue(kcal);
+
+//                            textView.setText(foodLabel);
+//                            textView2.setText(kcal);
+
+//                            if (foodLabel != null){
+//                                listener.onDataLoaded();
+//                            }
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+            }
+
+        });
+
+
+
+
+
+}
 
 }
