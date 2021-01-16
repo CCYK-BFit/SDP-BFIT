@@ -56,20 +56,6 @@
                 app:layout_constraintStart_toStartOf="@+id/calories"
                 app:layout_constraintTop_toBottomOf="@+id/calories" />
 
-            <ToggleButton
-                android:id="@+id/btnDropdown"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/tbtn_add_minus"
-                android:textOff=''
-                android:textOn=''
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.782"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.618" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
@@ -99,22 +85,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/curve_view">
 
-            <Button
-                android:id="@+id/btn_scan_bfast"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_green"
-                android:fontFamily="@font/roboto"
-                android:text="@string/scan"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:backgroundTint="@color/green"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_bfast"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.514" />
-
             <ToggleButton
                 android:id="@+id/btn_add_bfast"
                 android:layout_width="30dp"
@@ -124,6 +94,7 @@
                 android:background="@drawable/tbtn_add_minus"
                 android:textOff=''
                 android:textOn=''
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -270,21 +241,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_icon_avocado" />
 
-            <Button
-                android:id="@+id/btn_scan_lunch"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_green"
-                android:fontFamily="@font/roboto"
-                android:text="@string/scan"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:backgroundTint="@color/green"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_lunch"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ToggleButton
                 android:id="@+id/btn_add_lunch"
                 android:layout_width="30dp"
@@ -344,21 +300,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_icon_carrot" />
 
-            <Button
-                android:id="@+id/btn_scan_snack"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_green"
-                android:fontFamily="@font/roboto"
-                android:text="@string/scan"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:backgroundTint="@color/green"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_snack"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <ToggleButton
                 android:id="@+id/btn_add_snack"
                 android:layout_width="30dp"
@@ -416,21 +357,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_icon_eggplant" />
-
-            <Button
-                android:id="@+id/btn_scan_dinner"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginRight="5dp"
-                android:background="@drawable/btn_green"
-                android:fontFamily="@font/roboto"
-                android:text="@string/scan"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:backgroundTint="@color/green"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/btn_add_dinner"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ToggleButton
                 android:id="@+id/btn_add_dinner"
