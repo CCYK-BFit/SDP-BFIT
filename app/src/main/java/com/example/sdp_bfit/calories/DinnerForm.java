@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.sdp_bfit.R;
+import static com.example.sdp_bfit.calories.CameraActivity.foodLabel;
+import static com.example.sdp_bfit.calories.CameraActivity.kcal;
 
 public  class DinnerForm extends Fragment {
-    private CaloriesViewModel CaloriesViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

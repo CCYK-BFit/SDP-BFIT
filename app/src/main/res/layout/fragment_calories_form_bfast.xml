@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_breakfast"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="678dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginEnd="20dp"
@@ -21,32 +21,20 @@
         android:paddingBottom="20dp">
 
 
-        <ImageView
-            android:id="@+id/imageViewIconSleep"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:contentDescription="string/breakfast"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_icon_apple" />
-
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/breakfast"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Breakfast detail"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintStart_toEndOf="@+id/imageViewIconSleep"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintEnd_toEndOf="@+id/btn_scan"
+            app:layout_constraintHorizontal_bias="0.109"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.462" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -74,7 +62,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
         <EditText
-            android:id="@+id/editTextMealbfast"
+            android:id="@+id/editTextMealName"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="15dp"
@@ -102,7 +90,7 @@
             android:textColor="@color/grey"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextMealbfast" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealName" />
 
         <EditText
             android:id="@+id/editTextServingSize"
@@ -184,7 +172,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewRemark" />
 
         <Button
-            android:id="@+id/buttonSaveBfast"
+            android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
@@ -194,13 +182,13 @@
             android:text="Save"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:backgroundTint="@color/green"
-            app:layout_constraintEnd_toStartOf="@+id/buttonCancel"
+            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextRemark" />
 
         <Button
-            android:id="@+id/buttonCancel"
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
@@ -213,25 +201,25 @@
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonSaveBfast"
+            app:layout_constraintStart_toEndOf="@+id/btn_save"
             app:layout_constraintTop_toBottomOf="@+id/editTextRemark"
             app:strokeColor="@color/green"
             app:strokeWidth="2dp" />
 
         <Button
-            android:id="@+id/buttonGenerateQR"
+            android:id="@+id/btn_scan"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/btn_green_border"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/btn_green"
             android:fontFamily="@font/roboto"
-            android:paddingHorizontal="30dp"
-            android:text="Generate QR"
+            android:text="@string/scan"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:backgroundTint="@color/green"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonCancel" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.508" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

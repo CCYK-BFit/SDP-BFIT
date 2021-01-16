@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.sdp_bfit.R;
+import static com.example.sdp_bfit.calories.CameraActivity.foodLabel;
+import static com.example.sdp_bfit.calories.CameraActivity.kcal;
 
 public  class LunchForm extends Fragment {
 
