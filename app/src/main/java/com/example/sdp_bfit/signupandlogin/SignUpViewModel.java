@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SignUpandLoginViewModel extends ViewModel{
+public class SignUpViewModel extends ViewModel{
     private MutableLiveData<String> mText;
 
-    public SignUpandLoginViewModel() {
+    public SignUpViewModel() {
         mText = new MutableLiveData<>();
     }
 
