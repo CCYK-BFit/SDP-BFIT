@@ -3,6 +3,7 @@ package com.example.sdp_bfit;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -27,30 +28,42 @@ public class Database extends SQLiteOpenHelper {
     //this is called the first time the db is access, the code inside will create a new database
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-         //Nutrition Table
+         //Nutrition Table // do not alter the code here!!!!!!!
         String createTableStatement = "CREATE TABLE" +MEAL_TABLE+ "(" +
                                         MEAL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
                                         MEAL_TYPE + "TEXT," +
                                         MEAL_NAME + "TEXT," +
+                                        MEAL_SIZE + "INTEGER," +
                                         MEAL_CAL + "INTEGER," +
                                         MEAL_REMARK + "TEXT)"  ;
+
     }
 
     //this is called if the database version number changes, it prevents user data from corrupting
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    //any changes to the ddl must be implemented here
+        //any changes made to the create table statement must also code here
+        // or else system would output error
+        //can uninstall app on device to solve this prob temp
     }
 
-    public void insertMealDetails (Meal meal){
-         SQLiteDatabase db = this.getWritableDatabase(); // insert action
-        ContentValues cv = new ContentValues();
-        cv.put(MEAL_TYPE,meal.getMealType());
-        cv.put(MEAL_NAME,meal.getMealName());
-        cv.put(MEAL_SIZE,meal.getMealSize());
-        cv.put(MEAL_CAL,meal.getMealCal());
-        cv.put(MEAL_REMARK,meal.getMealRemark());
-        db.insert(MEAL_TABLE,null,cv);
+    public boolean insertMealDetails (Meal meal){
+         try {
+             SQLiteDatabase db = this.getWritableDatabase(); // insert action
+             ContentValues cv = new ContentValues();
+             cv.put(MEAL_TYPE, meal.getMealType());
+             cv.put(MEAL_NAME, meal.getMealName());
+             cv.put(MEAL_SIZE, meal.getMealSize());
+             cv.put(MEAL_CAL, meal.getMealCal());
+             cv.put(MEAL_REMARK, meal.getMealRemark());
+
+             db.insert(MEAL_TABLE, null, cv);
+             return true;
+         }catch(SQLException e){
+
+         }
+         return  false;
     }
 
     public List<Meal> getMealDetails(){

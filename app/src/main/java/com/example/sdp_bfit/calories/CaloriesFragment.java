@@ -5,33 +5,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.sdp_bfit.ItemFragment;
 import com.example.sdp_bfit.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class CaloriesFragment extends Fragment  {
 
     public String BfastTag ="bfastForm" , LunchTag="lunchForm" ,SnackTag="snackForm" , DinnerTag="dinnerForm";
     ToggleButton btn_add_Bfast , btn_add_lunch,btn_add_snack,btn_add_dinner;
-    ConstraintLayout card_bfast , card_lunch, card_snack,card_dinner;
+    ConstraintLayout card_bfast , card_lunch, card_snack,card_dinner,card_meal_history;
     public EditText mealname , mealcal , mealsize ;
+    TabLayout tabLayout;
+    ViewPager2 viewPager;
+    ScrollView mealhistoryContainer;
+    DemoFragmentAdapter demoFragmentAdapter;
+    // tab titles
+    private String[] titles = new String[]{"Breakfast", "Lunch", "Dinner","Snack"};
 
-
-        @Override
+    @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_calories_main, container, false);
+        View v = inflater.inflate(R.layout.fragment_calories_main2, container, false);
         //toggle button
         btn_add_Bfast = v.findViewById(R.id.btn_add_bfast);
-        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
-        btn_add_snack = v.findViewById(R.id.btn_add_snack);
-        btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
+//        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
+//        btn_add_snack = v.findViewById(R.id.btn_add_snack);
+//        btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
          TextView textView = v.findViewById(R.id.calories);
         //button
 //        btn_scan_lunch = v.findViewById(R.id.btn_scan_lunch);
@@ -47,11 +62,14 @@ public class CaloriesFragment extends Fragment  {
 
         //pane
         card_bfast = v.findViewById(R.id.card_breakfast);
-        card_lunch = v.findViewById(R.id.card_lunch);
-        card_snack= v.findViewById(R.id.card_snack);
-        card_dinner = v.findViewById(R.id.card_dinner);
-
-
+//        card_lunch = v.findViewById(R.id.card_lunch);
+//        card_snack= v.findViewById(R.id.card_snack);
+//        card_dinner = v.findViewById(R.id.card_dinner);
+        card_meal_history = v.findViewById(R.id.card_meal_history);
+        mealhistoryContainer=v.findViewById(R.id.meal_history_container);
+        //tablayout
+        tabLayout=v.findViewById(R.id.tabLayout_meal_history);
+        viewPager=v.findViewById(R.id.viewPager_Meal_history);
         //Toogle Button Action
         btn_add_Bfast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -64,64 +82,84 @@ public class CaloriesFragment extends Fragment  {
                     .show(bfastFragment).commit();
 
                     getView().findViewById(R.id.bfast_form_container).bringToFront(); }
-                else{//hide calories form
+                else {//hide calories form
                     removeNestedFragment(BfastTag);
-                    card_lunch.bringToFront();
-                    card_snack.bringToFront();
-                    card_dinner.bringToFront(); }
-            }
-        });
-        btn_add_lunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    //show lunch calories from
-                    Fragment lunchFragment= new LunchForm();
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-                    transaction.add(R.id.lunch_fragment_container, lunchFragment,LunchTag).show(lunchFragment).commit();
-                    getView().findViewById(R.id.lunch_form_container).bringToFront(); }
-                else{//hide calories form
-                    removeNestedFragment(LunchTag);
-                    card_snack.bringToFront();
-                    card_dinner.bringToFront();
+                    card_meal_history.bringToFront();
+                    mealhistoryContainer.bringToFront();
+//                    card_snack.bringToFront();
+//                    card_dinner.bringToFront();
                 }
             }
         });
-        btn_add_snack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){//show lunch calories from
-                    Fragment snackFragment= new SnackForm();
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-                    transaction.add(R.id.snack_fragment_container, snackFragment,SnackTag).show(snackFragment).commit();
-                    getView().findViewById(R.id.snack_form_container).bringToFront(); }
-                else{//hide calories form
-                    removeNestedFragment(SnackTag);
-                    card_dinner.bringToFront(); }
-            }
-        });
-        btn_add_dinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){//show lunch calories from
-                    Fragment dinnerFragment= new DinnerForm();
-                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-                    transaction.add(R.id.dinner_fragment_container, dinnerFragment,DinnerTag).show(dinnerFragment).commit();
-                    getView().findViewById(R.id.dinner_form_container).bringToFront();
-                }
-                else{//hide calories form
-                    removeNestedFragment(DinnerTag); }
-            }
-        });
+        demoFragmentAdapter = new DemoFragmentAdapter(this);
+        viewPager = v.findViewById(R.id.viewPager_Meal_history);
+        viewPager.setAdapter(demoFragmentAdapter);
+
+        TabLayout tabLayout = v.findViewById(R.id.tabLayout_meal_history);
+
+//        new TabLayoutMediator(tabLayout, viewPager,
+//                (tab, position) ->{
+//                    (tab.setText("Breakfast"[0]))
+//                }
+//
+//                }).attach();
+         new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(titles[position])).attach();
+//        btn_add_lunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked){
+//                    //show lunch calories from
+//                    Fragment lunchFragment= new LunchForm();
+//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
+//                    transaction.add(R.id.lunch_fragment_container, lunchFragment,LunchTag).show(lunchFragment).commit();
+//                    getView().findViewById(R.id.lunch_form_container).bringToFront(); }
+//                else{//hide calories form
+//                    removeNestedFragment(LunchTag);
+//                    card_snack.bringToFront();
+//                    card_dinner.bringToFront();
+//                }
+//            }
+//        });
+//        btn_add_snack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked){//show lunch calories from
+//                    Fragment snackFragment= new SnackForm();
+//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
+//                    transaction.add(R.id.snack_fragment_container, snackFragment,SnackTag).show(snackFragment).commit();
+//                    getView().findViewById(R.id.snack_form_container).bringToFront(); }
+//                else{//hide calories form
+//                    removeNestedFragment(SnackTag);
+//                    card_dinner.bringToFront(); }
+//            }
+//        });
+//        btn_add_dinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//                if(isChecked){//show lunch calories from
+//                    Fragment dinnerFragment= new DinnerForm();
+//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
+//                    transaction.add(R.id.dinner_fragment_container, dinnerFragment,DinnerTag).show(dinnerFragment).commit();
+//                    getView().findViewById(R.id.dinner_form_container).bringToFront();
+//                }
+//                else{//hide calories form
+//                    removeNestedFragment(DinnerTag); }
+//            }
+//        });
+
+
+
 
 
         return v;
 
 
     }
+
 
     //remove child fragment
     private void removeNestedFragment(String tag){
@@ -133,6 +171,40 @@ public class CaloriesFragment extends Fragment  {
     }
 
 
+}
+class DemoFragmentAdapter extends FragmentStateAdapter {
+    public DemoFragmentAdapter(Fragment fragment) {
+        super(fragment);
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+//        Fragment fragment = new LunchForm();
+//        Bundle args = new Bundle();
+//        // Our object is just an integer :-P
+//        args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
+//        fragment.setArguments(args);
+//        return fragment;
+        switch (position)
+        {
+            case 0:
+                return new ItemFragment(); //ChildFragment1 at position 0
+            case 1:
+                return new ItemFragment(); //ChildFragment2 at position 1
+            case 2:
+                return new ItemFragment(); //ChildFragment3 at position 2
+            case 3:
+                return new ItemFragment();
+        }
+        return null; //does not happen
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return 4;
+    }
 }
 
 
