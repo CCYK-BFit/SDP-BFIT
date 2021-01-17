@@ -22,19 +22,43 @@
 
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textViewRemark2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_regular"
-            android:text="Breakfast detail"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintEnd_toEndOf="@+id/btn_scan"
-            app:layout_constraintHorizontal_bias="0.109"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Remark"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.462" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextCalories" />
+
+        <EditText
+            android:id="@+id/editTextRemark2"
+            android:layout_width="340dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Details of the food"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCalories" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="136dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/mealTypes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -128,9 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
             android:ems="10"
             android:hint="Calories of the food"
             android:inputType="textPersonName"
@@ -140,58 +162,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewCalories" />
 
-        <TextView
-            android:id="@+id/textViewRemark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Remark"
-            android:textColor="@color/grey"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextCalories" />
-
-        <EditText
-            android:id="@+id/editTextRemark"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:ems="10"
-            android:hint="Details of the food"
-            android:inputType="textPersonName"
-            android:text=""
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRemark" />
-
         <Button
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="44dp"
             android:background="@drawable/btn_green"
             android:fontFamily="@font/roboto"
             android:paddingHorizontal="30dp"
             android:text="Save"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:backgroundTint="@color/green"
-            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextRemark" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextRemark2" />
 
         <Button
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="44dp"
             android:background="@drawable/btn_green_border"
             android:fontFamily="@font/roboto"
             android:paddingHorizontal="30dp"
@@ -200,9 +191,7 @@
             android:textColor="@color/green"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_save"
-            app:layout_constraintTop_toBottomOf="@+id/editTextRemark"
+            app:layout_constraintTop_toBottomOf="@+id/editTextRemark2"
             app:strokeColor="@color/green"
             app:strokeWidth="2dp" />
 
