@@ -10,13 +10,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -47,7 +43,7 @@ public class CaloriesFragment extends Fragment  {
     @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_calories_main2, container, false);
+        View v = inflater.inflate(R.layout.fragment_calories_main, container, false);
         //toggle button
         btn_add_Bfast = v.findViewById(R.id.btn_add_bfast);
 //        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
@@ -81,7 +77,7 @@ public class CaloriesFragment extends Fragment  {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){//show bfast calories from
-            Fragment bfastFragment= new BfastForm();
+            Fragment bfastFragment= new MealForm();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
             transaction.replace(R.id.bfast_fragment_container, bfastFragment,BfastTag).addToBackStack("MEAL_FORM_FRAGMENT")

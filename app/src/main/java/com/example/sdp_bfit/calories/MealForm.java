@@ -12,23 +12,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.sdp_bfit.Database;
-import com.example.sdp_bfit.MainActivity;
 import com.example.sdp_bfit.R;
-import com.example.sdp_bfit.signupandlogin.LoginActivity;
-import com.google.android.material.tabs.TabLayout;
 
 import static com.example.sdp_bfit.calories.CaloriesFragment.todayDate;
 import static com.example.sdp_bfit.calories.CameraActivity.foodLabel;
 import static com.example.sdp_bfit.calories.CameraActivity.kcal;
 
 
-public class BfastForm extends Fragment  {
+public class MealForm extends Fragment  {
     public Button btn_scan,btn_save,btn_cancel;
     private EditText  editTextmealName,editTextmealCal, editTextmealSize, editTextmealRemark;
     Dialog alertDialog;
@@ -37,7 +31,7 @@ public class BfastForm extends Fragment  {
         public View onCreateView(@NonNull LayoutInflater inflater,
                                    ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_calories_form_bfast, container, false);
+        View root = inflater.inflate(R.layout.fragment_calories_form, container, false);
         //Edit Text
             editTextmealName = root.findViewById(R.id.editTextMealName);
              editTextmealCal = root.findViewById(R.id.editTextCalories);

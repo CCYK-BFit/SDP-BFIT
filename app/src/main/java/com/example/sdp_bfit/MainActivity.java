@@ -4,13 +4,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -18,10 +15,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.sdp_bfit.calories.CaloriesFragment;
-import com.example.sdp_bfit.profile.ProfileFragment;
-import com.example.sdp_bfit.sleep.SleepFragment;
-import com.example.sdp_bfit.workout.WorkoutFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -48,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         requestPermission();
         //TO-DO : Get intent from camera activity
         Intent intent = getIntent();
-        View view = getLayoutInflater().inflate(R.layout.fragment_calories_main,null);
+        View view = getLayoutInflater().inflate(R.layout.fragment_calories_main_unused,null);
         String calories = intent .getStringExtra("calories");
         TextView textView = view.findViewById(R.id.calories);
         textView.setText("hi");
