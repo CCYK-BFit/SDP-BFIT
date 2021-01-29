@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -25,7 +27,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-public class CaloriesFragment extends Fragment  {
+public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public String BfastTag ="bfastForm" , LunchTag="lunchForm" ,SnackTag="snackForm" , DinnerTag="dinnerForm";
     ToggleButton btn_add_Bfast , btn_add_lunch,btn_add_snack,btn_add_dinner;
@@ -37,6 +39,7 @@ public class CaloriesFragment extends Fragment  {
     ViewPager2 viewPager;
     ScrollView mealhistoryContainer;
     DemoFragmentAdapter demoFragmentAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
     // tab titles
     private String[] titles = new String[]{"Breakfast", "Lunch", "Dinner","Snack"};
     public static String todayDate;
@@ -72,6 +75,8 @@ public class CaloriesFragment extends Fragment  {
         //tablayout
         tabLayout=v.findViewById(R.id.tabLayout_meal_history);
         viewPager=v.findViewById(R.id.viewPager_Meal_history);
+
+
         //Toogle Button Action
         btn_add_Bfast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -90,6 +95,7 @@ public class CaloriesFragment extends Fragment  {
                     mealhistoryContainer.bringToFront();
 //                    card_snack.bringToFront();
 //                    card_dinner.bringToFront();
+                    displayCalories();
                 }
             }
         });
@@ -186,8 +192,27 @@ public class CaloriesFragment extends Fragment  {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //swipe refresh layout
+//        swipeRefreshLayout=view.findViewById(R.id.swipe_container);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                displayCalories();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
+        displayCalories();
+    }
+
+    @Override
+    public void onRefresh() {
         displayCalories();
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.R;
@@ -75,8 +76,22 @@ public class MealForm extends Fragment  {
                             if (success = true) {
                                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                             }
+                            // Reload current fragment
+//                              Fragment frg= new CaloriesFragment();
+//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//                            ft.detach(frg);
+//                            ft.attach(frg);
+//                            ft.commit();
 
+//                            Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.fragment_calories_container);
+//                            if (currentFragment instanceof "NAME OF YOUR FRAGMENT CLASS") {
+//                                FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
+//                                fragTransaction.detach(currentFragment);
+//                                fragTransaction.attach(currentFragment);
+//                                fragTransaction.commit();}
                         }
+
+
                         catch(Exception e){
                             Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
