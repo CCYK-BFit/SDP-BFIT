@@ -1,7 +1,9 @@
 package com.example.sdp_bfit.calories;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,10 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.MainActivity;
 import com.example.sdp_bfit.R;
+import com.example.sdp_bfit.signupandlogin.LoginActivity;
 import com.google.android.material.tabs.TabLayout;
 
+import static com.example.sdp_bfit.calories.CaloriesFragment.todayDate;
 import static com.example.sdp_bfit.calories.CameraActivity.foodLabel;
 import static com.example.sdp_bfit.calories.CameraActivity.kcal;
 
@@ -27,7 +31,7 @@ import static com.example.sdp_bfit.calories.CameraActivity.kcal;
 public class BfastForm extends Fragment  {
     public Button btn_scan,btn_save,btn_cancel;
     private EditText  editTextmealName,editTextmealCal, editTextmealSize, editTextmealRemark;
-
+    Dialog alertDialog;
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,7 +42,7 @@ public class BfastForm extends Fragment  {
             editTextmealName = root.findViewById(R.id.editTextMealName);
              editTextmealCal = root.findViewById(R.id.editTextCalories);
             editTextmealSize = root.findViewById(R.id.editTextServingSize);
-            editTextmealRemark = root.findViewById(R.id.editTextRemark);
+            editTextmealRemark = root.findViewById(R.id.editTextMealRemark);
             //button
             btn_scan = root.findViewById(R.id.btn_scan);
             btn_save = root.findViewById(R.id.btn_save);
@@ -55,25 +59,64 @@ public class BfastForm extends Fragment  {
             btn_save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (editTextmealCal.getText()!=null&&editTextmealName.getText()!=null&&editTextmealSize.getText()!=null
-                            &&editTextmealRemark.getText()!=null) {
-                        //getText
-                        String mealName=editTextmealName.getText().toString();
-                        int mealSize=Integer.parseInt(editTextmealSize.getText().toString());
-                        int mealCal = Integer.parseInt(editTextmealCal.getText().toString());
-                        String mealRemark = editTextmealRemark.getText().toString();
-                        Meal meal = new Meal("Breakfast", mealName, mealSize, mealCal, mealRemark);
-                        Database db = new Database(getContext());
-                        boolean success = db.insertMealDetails(meal);
-                        if (success = true) {
-                            Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                    if (TextUtils.isEmpty(editTextmealCal.getText().toString())||
+                            TextUtils.isEmpty(editTextmealName.getText().toString())||
+                    TextUtils.isEmpty(editTextmealSize.getText().toString())    ||
+                            TextUtils.isEmpty(editTextmealRemark.getText().toString())
+                                   ) {
+                        //open error dialog
+                        openDialog();
+
+                    }
+                    else{ //validate success
+
+                        try {
+                            String mealName = editTextmealName.getText().toString();
+                            int mealSize = Integer.parseInt(editTextmealSize.getText().toString());
+                            int mealCal = Integer.parseInt(editTextmealCal.getText().toString());
+                            String mealRemark = editTextmealRemark.getText().toString();
+                            Meal meal = new Meal("Breakfast", mealName, mealSize, mealCal, mealRemark, todayDate);
+                            Database db = new Database(getContext());
+                            boolean success = db.insertMealDetails(meal);
+                            if (success = true) {
+                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        catch(Exception e){
+                            Toast.makeText(getActivity(), e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else{}
                 }
             });
 
         return root;
+    }
+
+    private void openDialog() {
+        // login alert message
+        alertDialog = new Dialog(getContext());
+        alertDialog.setContentView(R.layout.fragment_calories_alertdialog);
+        alertDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        alertDialog.setCancelable(false);
+
+        Button login_alertdialog_btnCancel = alertDialog.findViewById(R.id.login_alertdialog_btnCancel);
+        Button login_alertdialog_btnRetry = alertDialog.findViewById(R.id.login_alertdialog_btnRetry);
+
+        login_alertdialog_btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        login_alertdialog_btnRetry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
 

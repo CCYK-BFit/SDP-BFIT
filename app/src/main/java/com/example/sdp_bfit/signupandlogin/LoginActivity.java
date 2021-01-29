@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     openDialog();
                 }*/
-                if (TextUtils.isEmpty(Email.getText().toString()) && TextUtils.isEmpty(Password.getText().toString())){
+                if (TextUtils.isEmpty(Email.getText().toString()) || TextUtils.isEmpty(Password.getText().toString())){
                     openDialog();
                 }else {
                     Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();

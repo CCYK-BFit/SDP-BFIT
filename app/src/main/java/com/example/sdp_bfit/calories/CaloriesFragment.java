@@ -20,10 +20,14 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.ItemFragment;
 import com.example.sdp_bfit.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class CaloriesFragment extends Fragment  {
 
@@ -31,13 +35,15 @@ public class CaloriesFragment extends Fragment  {
     ToggleButton btn_add_Bfast , btn_add_lunch,btn_add_snack,btn_add_dinner;
     ConstraintLayout card_bfast , card_lunch, card_snack,card_dinner,card_meal_history;
     public EditText mealname , mealcal , mealsize ;
+    public TextView txt_calories_count;
+    private int calories_count;
     TabLayout tabLayout;
     ViewPager2 viewPager;
     ScrollView mealhistoryContainer;
     DemoFragmentAdapter demoFragmentAdapter;
     // tab titles
     private String[] titles = new String[]{"Breakfast", "Lunch", "Dinner","Snack"};
-
+    public static String todayDate;
     @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -47,7 +53,7 @@ public class CaloriesFragment extends Fragment  {
 //        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
 //        btn_add_snack = v.findViewById(R.id.btn_add_snack);
 //        btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
-         TextView textView = v.findViewById(R.id.calories);
+         txt_calories_count = v.findViewById(R.id.txt_calories_count);
         //button
 //        btn_scan_lunch = v.findViewById(R.id.btn_scan_lunch);
 //        btn_scan_snack = v.findViewById(R.id.btn_scan_snack);
@@ -150,6 +156,12 @@ public class CaloriesFragment extends Fragment  {
 //                    removeNestedFragment(DinnerTag); }
 //            }
 //        });
+        displayCalories();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Kuala_Lumpur"));
+           todayDate = String.valueOf(today);
+        }
+
 
 
 
@@ -171,7 +183,22 @@ public class CaloriesFragment extends Fragment  {
     }
 
 
+    void displayCalories() {
+        Database db = new Database(getContext());
+        Meal meal = new Meal();
+        txt_calories_count.setText(String.valueOf(db.calcCalories(meal)));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayCalories();
+    }
 }
+
+
+
+
 class DemoFragmentAdapter extends FragmentStateAdapter {
     public DemoFragmentAdapter(Fragment fragment) {
         super(fragment);

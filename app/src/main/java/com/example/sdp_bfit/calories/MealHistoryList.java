@@ -25,7 +25,7 @@ private ArrayAdapter mealArrayAdapter;
         View v = inflater.inflate(R.layout.fragment_listview_bfast, container, false);
        ls_bfast= v.findViewById(R.id.ls_bfast);
        Database db = new Database(getContext());
-        ShowAllMeal(db);
+        ShowBfastList(db);
 
         return v;
     }
@@ -35,8 +35,16 @@ private ArrayAdapter mealArrayAdapter;
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void ShowAllMeal(Database db) {
-        mealArrayAdapter = new ArrayAdapter<Meal>(getContext(), android.R.layout.simple_list_item_1, db.getMealDetails());
+    @Override
+    public void onResume() {
+        super.onResume();
+        Database db = new Database(getContext());
+        ShowBfastList(db);
+
+    }
+
+    private void ShowBfastList(Database db) {
+        mealArrayAdapter = new ArrayAdapter<Meal>(getContext(), android.R.layout.simple_list_item_1, db.getBfastDetails());
         ls_bfast.setAdapter(mealArrayAdapter);
     }
 }

@@ -35,7 +35,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextCalories" />
 
         <EditText
-            android:id="@+id/editTextRemark2"
+            android:id="@+id/editTextMealRemark"
             android:layout_width="340dp"
             android:layout_height="41dp"
             android:layout_marginTop="28dp"
@@ -175,7 +175,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:backgroundTint="@color/green"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextRemark2" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealRemark" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -191,7 +191,7 @@
             android:textColor="@color/green"
             app:backgroundTint="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextRemark2"
+            app:layout_constraintTop_toBottomOf="@+id/editTextMealRemark"
             app:strokeColor="@color/green"
             app:strokeWidth="2dp" />
 
