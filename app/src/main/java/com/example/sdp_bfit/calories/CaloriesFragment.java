@@ -189,7 +189,7 @@ class DemoFragmentAdapter extends FragmentStateAdapter {
         switch (position)
         {
             case 0:
-                return new ItemFragment(); //ChildFragment1 at position 0
+                return new MealHistoryList(); //ChildFragment1 at position 0
             case 1:
                 return new ItemFragment(); //ChildFragment2 at position 1
             case 2:
