@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/top_black_view" />
 
     <TextView
-        android:id="@+id/sleep"
+        android:id="@+id/SC"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -64,8 +64,8 @@
         android:textColor="#ffffff"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
-        app:layout_constraintStart_toStartOf="@+id/sleep"
-        app:layout_constraintTop_toBottomOf="@+id/sleep" />
+        app:layout_constraintStart_toStartOf="@+id/SC"
+        app:layout_constraintTop_toBottomOf="@+id/SC" />
 
     <ImageView
         android:id="@+id/imageView2"
