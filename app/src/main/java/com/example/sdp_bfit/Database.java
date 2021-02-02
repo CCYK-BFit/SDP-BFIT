@@ -40,7 +40,21 @@ public class Database extends SQLiteOpenHelper {
                                         MEAL_CAL + " INTEGER," +
                                         MEAL_REMARK + " TEXT," +
                                         MEAL_DATE + " TEXT)";
+
             sqLiteDatabase.execSQL(createTableStatement);
+            //workout table
+        /*String createWorkoutTableStatement = "CREATE TABLE " +MEAL_TABLE+ "(" +
+                MEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MEAL_TYPE + " TEXT," +
+                MEAL_NAME + " TEXT," +
+                MEAL_SIZE + " INTEGER," +
+                MEAL_CAL + " INTEGER," +
+                MEAL_REMARK + " TEXT," +
+                MEAL_DATE + " TEXT)";
+
+        sqLiteDatabase.execSQL(createWorkoutTableStatement);*/
+        //sleep table
+        //user table
     }
 
     //this is called if the database version number changes, it prevents user data from corrupting
