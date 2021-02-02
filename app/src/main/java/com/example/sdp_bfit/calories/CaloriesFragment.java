@@ -105,12 +105,6 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         TabLayout tabLayout = v.findViewById(R.id.tabLayout_meal_history);
 
-//        new TabLayoutMediator(tabLayout, viewPager,
-//                (tab, position) ->{
-//                    (tab.setText("Breakfast"[0]))
-//                }
-//
-//                }).attach();
          new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(titles[position])).attach();
 //        btn_add_lunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -228,22 +222,17 @@ class DemoFragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-//        Fragment fragment = new LunchForm();
-//        Bundle args = new Bundle();
-//        // Our object is just an integer :-P
-//        args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
-//        fragment.setArguments(args);
-//        return fragment;
+
         switch (position)
         {
             case 0:
-                return new MealHistoryList(); //ChildFragment1 at position 0
+                return new BfastHistoryList(); //ChildFragment1 at position 0
             case 1:
-                return new ItemFragment(); //ChildFragment2 at position 1
+                return new DinnerHistoryList(); //ChildFragment2 at position 1
             case 2:
-                return new ItemFragment(); //ChildFragment3 at position 2
+                return new LunchHistoryList(); //ChildFragment3 at position 2
             case 3:
-                return new ItemFragment();
+                return new SnackHistoryList();
         }
         return null; //does not happen
     }

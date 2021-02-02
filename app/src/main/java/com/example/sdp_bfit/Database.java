@@ -125,6 +125,98 @@ public class Database extends SQLiteOpenHelper {
         return mealList;
         }
 
-
+    public List<Meal> getLunchDetails(){
+        List <Meal> mealList = new ArrayList<>();
+        //get data from the db
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Lunch'";
+        Cursor cs = db.rawQuery(query,null);
+        //if cursor is able to move to the first row, then the result is present
+        if (cs.moveToFirst()) {
+            //loop through the result set and create new meal object, put them into mealList
+            do{
+//                int mealID = cs.getInt(0);
+                String mealType = cs.getString(1);
+                String mealName = cs.getString(2);
+                int mealSize = cs.getInt(3);
+                int mealCal = cs.getInt(4);
+                String mealRemark = cs.getString(5);
+                String mealDate = String.valueOf(todayDate);
+                Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
+                mealList.add(meal);
+            }while(cs.moveToNext());
+        }else{
+            //failure, do not do anything to the list
+        }
+        //close cursor and database
+        cs.close();
+        db.close();
+        return mealList;
     }
+    public List<Meal> getDinnerDetails(){
+        List <Meal> mealList = new ArrayList<>();
+        //get data from the db
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Dinner'";
+        Cursor cs = db.rawQuery(query,null);
+        //if cursor is able to move to the first row, then the result is present
+        if (cs.moveToFirst()) {
+            //loop through the result set and create new meal object, put them into mealList
+            do{
+//                int mealID = cs.getInt(0);
+                String mealType = cs.getString(1);
+                String mealName = cs.getString(2);
+                int mealSize = cs.getInt(3);
+                int mealCal = cs.getInt(4);
+                String mealRemark = cs.getString(5);
+                String mealDate = String.valueOf(todayDate);
+                Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
+                mealList.add(meal);
+            }while(cs.moveToNext());
+        }else{
+            //failure, do not do anything to the list
+        }
+        //close cursor and database
+        cs.close();
+        db.close();
+        return mealList;
+    }
+    public List<Meal> getSnackDetails(){
+        List <Meal> mealList = new ArrayList<>();
+        //get data from the db
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Snack'";
+        Cursor cs = db.rawQuery(query,null);
+        //if cursor is able to move to the first row, then the result is present
+        if (cs.moveToFirst()) {
+            //loop through the result set and create new meal object, put them into mealList
+            do{
+//                int mealID = cs.getInt(0);
+                String mealType = cs.getString(1);
+                String mealName = cs.getString(2);
+                int mealSize = cs.getInt(3);
+                int mealCal = cs.getInt(4);
+                String mealRemark = cs.getString(5);
+                String mealDate = String.valueOf(todayDate);
+                Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
+                mealList.add(meal);
+            }while(cs.moveToNext());
+        }else{
+            //failure, do not do anything to the list
+        }
+        //close cursor and database
+        cs.close();
+        db.close();
+        return mealList;
+    }
+
+//    public void deleteItem(Object item) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        db.delete(MEAL_TABLE, MEAL_ID+ " = ?",
+//                new String[]{String.valueOf(item.getId())});
+//        db.close();
+//    }
+}
+
+
 
