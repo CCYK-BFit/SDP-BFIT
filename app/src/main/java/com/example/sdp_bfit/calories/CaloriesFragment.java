@@ -13,41 +13,46 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.ItemFragment;
 import com.example.sdp_bfit.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class CaloriesFragment extends Fragment  {
+import java.time.LocalDate;
+import java.time.ZoneId;
+
+public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public String BfastTag ="bfastForm" , LunchTag="lunchForm" ,SnackTag="snackForm" , DinnerTag="dinnerForm";
     ToggleButton btn_add_Bfast , btn_add_lunch,btn_add_snack,btn_add_dinner;
     ConstraintLayout card_bfast , card_lunch, card_snack,card_dinner,card_meal_history;
     public EditText mealname , mealcal , mealsize ;
+    public TextView txt_calories_count;
+    private int calories_count;
     TabLayout tabLayout;
     ViewPager2 viewPager;
     ScrollView mealhistoryContainer;
     DemoFragmentAdapter demoFragmentAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
     // tab titles
     private String[] titles = new String[]{"Breakfast", "Lunch", "Dinner","Snack"};
-
+    public static String todayDate;
     @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_calories_main2, container, false);
+        View v = inflater.inflate(R.layout.fragment_calories_main, container, false);
         //toggle button
         btn_add_Bfast = v.findViewById(R.id.btn_add_bfast);
 //        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
 //        btn_add_snack = v.findViewById(R.id.btn_add_snack);
 //        btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
-         TextView textView = v.findViewById(R.id.calories);
+         txt_calories_count = v.findViewById(R.id.txt_calories_count);
         //button
 //        btn_scan_lunch = v.findViewById(R.id.btn_scan_lunch);
 //        btn_scan_snack = v.findViewById(R.id.btn_scan_snack);
@@ -70,12 +75,14 @@ public class CaloriesFragment extends Fragment  {
         //tablayout
         tabLayout=v.findViewById(R.id.tabLayout_meal_history);
         viewPager=v.findViewById(R.id.viewPager_Meal_history);
+
+
         //Toogle Button Action
         btn_add_Bfast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){//show bfast calories from
-            Fragment bfastFragment= new BfastForm();
+            Fragment bfastFragment= new MealForm();
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
             transaction.replace(R.id.bfast_fragment_container, bfastFragment,BfastTag).addToBackStack("MEAL_FORM_FRAGMENT")
@@ -88,6 +95,7 @@ public class CaloriesFragment extends Fragment  {
                     mealhistoryContainer.bringToFront();
 //                    card_snack.bringToFront();
 //                    card_dinner.bringToFront();
+                    displayCalories();
                 }
             }
         });
@@ -97,12 +105,6 @@ public class CaloriesFragment extends Fragment  {
 
         TabLayout tabLayout = v.findViewById(R.id.tabLayout_meal_history);
 
-//        new TabLayoutMediator(tabLayout, viewPager,
-//                (tab, position) ->{
-//                    (tab.setText("Breakfast"[0]))
-//                }
-//
-//                }).attach();
          new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(titles[position])).attach();
 //        btn_add_lunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -150,6 +152,12 @@ public class CaloriesFragment extends Fragment  {
 //                    removeNestedFragment(DinnerTag); }
 //            }
 //        });
+        displayCalories();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Kuala_Lumpur"));
+           todayDate = String.valueOf(today);
+        }
+
 
 
 
@@ -171,7 +179,41 @@ public class CaloriesFragment extends Fragment  {
     }
 
 
+    void displayCalories() {
+        Database db = new Database(getContext());
+        Meal meal = new Meal();
+        txt_calories_count.setText(String.valueOf(db.calcCalories(meal)));
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //swipe refresh layout
+//        swipeRefreshLayout=view.findViewById(R.id.swipe_container);
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                displayCalories();
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        displayCalories();
+    }
+
+    @Override
+    public void onRefresh() {
+        displayCalories();
+    }
 }
+
+
+
+
 class DemoFragmentAdapter extends FragmentStateAdapter {
     public DemoFragmentAdapter(Fragment fragment) {
         super(fragment);
@@ -180,22 +222,17 @@ class DemoFragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-//        Fragment fragment = new LunchForm();
-//        Bundle args = new Bundle();
-//        // Our object is just an integer :-P
-//        args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
-//        fragment.setArguments(args);
-//        return fragment;
+
         switch (position)
         {
             case 0:
-                return new ItemFragment(); //ChildFragment1 at position 0
+                return new BfastHistoryList(); //ChildFragment1 at position 0
             case 1:
-                return new ItemFragment(); //ChildFragment2 at position 1
+                return new DinnerHistoryList(); //ChildFragment2 at position 1
             case 2:
-                return new ItemFragment(); //ChildFragment3 at position 2
+                return new LunchHistoryList(); //ChildFragment3 at position 2
             case 3:
-                return new ItemFragment();
+                return new SnackHistoryList();
         }
         return null; //does not happen
     }
