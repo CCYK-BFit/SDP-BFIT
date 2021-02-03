@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.Nullable;
 
 import com.example.sdp_bfit.calories.Meal;
+import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class Database extends SQLiteOpenHelper {
     public static final String MEAL_CAL = "MEAL_CAL";
     public static final String MEAL_REMARK = "MEAL_REMARK";
     public static final String MEAL_DATE = "MEAL_DATE";
+    public static final String WORKOUT_TABLE = "WORKOUT_TABLE";
+    public static final String WORKOUT_STEP = "WORKOUT_STEP";
+    public static final String WORKOUT_DATE = "WORKOUT_DATE";
+    public static final String WORKOUT_CAL = "WORKOUT_CAL";
+    public static final String WORKOUT_DIS = "WORKOUT_DIS";
 
     public static final String SLEEP_TABLE = "SLEEP_TABLE";
     public static String SLEEP_ID = "SLEEP_ID";
@@ -55,16 +61,13 @@ public class Database extends SQLiteOpenHelper {
 
             sqLiteDatabase.execSQL(createTableStatement);
             //workout table
-        /*String createWorkoutTableStatement = "CREATE TABLE " +MEAL_TABLE+ "(" +
-                MEAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                MEAL_TYPE + " TEXT," +
-                MEAL_NAME + " TEXT," +
-                MEAL_SIZE + " INTEGER," +
-                MEAL_CAL + " INTEGER," +
-                MEAL_REMARK + " TEXT," +
-                MEAL_DATE + " TEXT)";
+        String createWorkoutTableStatement = "CREATE TABLE " +WORKOUT_TABLE+ "(" +
+                WORKOUT_STEP + " INTEGER," +
+                WORKOUT_CAL + " DOUBLE," +
+                WORKOUT_DIS + " DOUBLE," +
+                WORKOUT_DATE + " TEXT)";
 
-        sqLiteDatabase.execSQL(createWorkoutTableStatement);*/
+        sqLiteDatabase.execSQL(createWorkoutTableStatement);
         //sleep table
 
         String createSleepTable = "CREATE TABLE " + SLEEP_TABLE+ "(" +
@@ -106,6 +109,62 @@ public class Database extends SQLiteOpenHelper {
          return  false;
     }
 
+    public boolean insertWorkout (Workout workout){
+        try {
+            SQLiteDatabase db = this.getWritableDatabase(); // insert action
+            ContentValues cv = new ContentValues();
+            cv.put(WORKOUT_STEP, workout.getStep());
+            cv.put(WORKOUT_CAL, workout.getCal());
+            cv.put(WORKOUT_DIS, workout.getDis());
+            cv.put(WORKOUT_DATE, workout.getDate());
+
+            db.insert(WORKOUT_TABLE, null, cv);
+            return true;
+        }catch(SQLException e){
+
+        }
+        return  false;
+    }
+
+    public double displayCal (Workout workout) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT AVG(WORKOUT_CAL) AS AvgCal FROM WORKOUT_TABLE ";
+            Cursor cs = db.rawQuery(query, null);
+            if (cs.moveToFirst()) {
+                do {
+                    double calw = cs.getDouble(0);
+                    cs.close();
+                    db.close();
+                    return calw;
+
+                } while (cs.moveToNext());
+
+            }
+        }catch(SQLException e){
+        }
+        return 0.00;
+    }
+    public double displayDis (Workout workout) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT AVG(WORKOUT_DIS) AS AvgCal FROM WORKOUT_TABLE ";
+            Cursor cs = db.rawQuery(query, null);
+            if (cs.moveToFirst()) {
+                do {
+                    double disw = cs.getDouble(0);
+                    cs.close();
+                    db.close();
+                    return disw;
+
+                } while (cs.moveToNext());
+
+            }
+        }catch(SQLException e){
+        }
+        return 0.00;
+    }
+
     public int calcCalories (Meal meal){
          try{
              SQLiteDatabase db = this.getReadableDatabase();
@@ -130,6 +189,9 @@ public class Database extends SQLiteOpenHelper {
             return 0;
 
     }
+
+
+
 
     public List<Meal> getBfastDetails(){
         List<Meal> mealList = new ArrayList<>();
@@ -290,7 +352,7 @@ public class Database extends SQLiteOpenHelper {
                 int mealSize = cs.getInt(3);
                 int mealCal = cs.getInt(4);
                 String mealRemark = cs.getString(5);
-                String mealDate = cs.getString(6);
+                String mealDate = String.valueOf(todayDate);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
             }while(cs.moveToNext());

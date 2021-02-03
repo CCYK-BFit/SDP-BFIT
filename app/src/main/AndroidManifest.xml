@@ -15,6 +15,7 @@
 
         android:largeHeap="true"
         android:theme="@style/Theme.SDP_Bfit">
+        <service android:name=".workout.MyService"/>
         <activity android:name=".calories.CameraActivity"
             android:parentActivityName=".MainActivity"/>
 <!--        <activity android:name=".MainActivity" />-->
