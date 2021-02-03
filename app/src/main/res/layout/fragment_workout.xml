@@ -36,34 +36,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_black_view" />
 
-    <TextView
-        android:id="@+id/SC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="2398"
-        android:textColor="#ffffff"
-        android:textSize="46sp"
-        app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textview6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:fontFamily="@font/roboto_regular"
-        android:text="steps"
-        android:textColor="#ffffff"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
-        app:layout_constraintStart_toStartOf="@+id/SC"
-        app:layout_constraintTop_toBottomOf="@+id/SC" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_caloriesBurnt"
         android:layout_width="0dp"
@@ -426,5 +398,51 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/Savew"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_green"
+        android:fontFamily="@font/roboto"
+        android:text="@string/reset"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:backgroundTint="@color/green"
+        app:layout_constraintBottom_toTopOf="@+id/curve_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_black_view"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <TextView
+        android:id="@+id/textview6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:fontFamily="@font/roboto_regular"
+        android:text="steps"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
+        app:layout_constraintStart_toStartOf="@+id/SC"
+        app:layout_constraintTop_toBottomOf="@+id/SC"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <TextView
+        android:id="@+id/SC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="2398"
+        android:textColor="#ffffff"
+        android:textSize="46sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_black_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.338" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
