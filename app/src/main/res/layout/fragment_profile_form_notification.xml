@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_notificationform"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bggrey"
+    android:paddingBottom="100dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_notification1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/white_box"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+<!--        <View-->
+<!--            android:id="@+id/ic_notification1"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            android:background="@drawable/ic_notification"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_notification1"-->
+<!--            app:layout_constraintHorizontal_bias="0.085"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_notification1"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/card_notification1" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtNotification1"-->
+<!--            android:layout_width="180dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="21dp"-->
+<!--            android:fontFamily="@font/roboto_bold"-->
+<!--            android:inputType="text"-->
+<!--            android:text="Notification"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_notification1"-->
+<!--            app:layout_constraintHorizontal_bias="0.20"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/ic_notification1"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/card_notification1" />-->
+
+        <View
+            android:id="@+id/profile_notification_horizontaldivider1"
+            style="@style/Divider"
+            android:layout_width="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintBottom_toTopOf="@id/txtSleepReminder" />
+
+        <TextView
+            android:id="@+id/txtSleepReminder"
+            android:layout_width="127dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="Sleep Reminder"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/profile_notification_horizontaldivider2"
+            app:layout_constraintEnd_toEndOf="@id/profile_notification_horizontaldivider2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1" />
+
+        <ToggleButton
+            android:id="@+id/profile_notification_radbtn1"
+            android:layout_width="51dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/tbtn_on_off"
+            android:textOff=''
+            android:textOn=''
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/profile_notification_horizontaldivider1" />
+
+        <View
+            android:id="@+id/profile_notification_horizontaldivider2"
+            style="@style/Divider"
+            android:layout_width="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/txtSleepReminder" />
+
+        <TextView
+            android:id="@+id/txtWorkoutReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="Workout Reminder"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintTop_toTopOf="@+id/profile_notification_horizontaldivider2" />
+
+        <ToggleButton
+            android:id="@+id/profile_notification_radbtn2"
+            android:layout_width="51dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/tbtn_on_off"
+            android:textOff=''
+            android:textOn=''
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/profile_notification_horizontaldivider2" />
+
+        <View
+            android:id="@+id/profile_notification_horizontaldivider3"
+            style="@style/Divider"
+            android:layout_width="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/txtWorkoutReminder" />
+
+        <TextView
+            android:id="@+id/txtPeriodReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="Period Reminder"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintTop_toTopOf="@+id/profile_notification_horizontaldivider3" />
+
+        <ToggleButton
+            android:id="@+id/profile_notification_radbtn3"
+            android:layout_width="51dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/tbtn_on_off"
+            android:textOff=''
+            android:textOn=''
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/profile_notification_horizontaldivider3" />
+
+        <Button
+            android:id="@+id/profile_notification_btnSave"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_green"
+            android:fontFamily="@font/roboto"
+            android:text="Save"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:backgroundTint="@color/green"
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="@id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeriodReminder" />
+
+        <Button
+            android:id="@+id/profile_notification_btnCancel"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_green_border"
+            android:fontFamily="@font/roboto"
+            android:text="Cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/green"
+            app:backgroundTint="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/card_notification1"
+            app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintStart_toStartOf="@+id/card_notification1"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeriodReminder" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -22,6 +22,15 @@ public class Database extends SQLiteOpenHelper {
      public static final String MEAL_CAL = "MEAL_CAL";
      public static final String MEAL_REMARK = "MEAL_REMARK";
 
+    //User Profile
+    public static final String USER_PROFILE ="USER_PROFILE";
+    public static final String USER_ID ="USER_ID";
+    public static final String USER_EMAIL = "USER_EMAIL";
+    public static final String USER_FNAME = "USER_FNAME";
+    public static final String USER_PASSWORD ="USER_PASSWORD";
+    public static final String USER_WEIGHT = "USER_WEIGHT";
+    public static final String USER_HEIGHT = "USER_HEIGHT";
+
      public Database(@Nullable Context context){super(context,"BFIT.db",null,1);}
 
     //this is called the first time the db is access, the code inside will create a new database
@@ -34,6 +43,15 @@ public class Database extends SQLiteOpenHelper {
                                         MEAL_NAME + "TEXT," +
                                         MEAL_CAL + "INTEGER," +
                                         MEAL_REMARK + "TEXT)"  ;
+
+        //User Table
+        String createUserTableStatement = "CREATE TABLE" +USER_PROFILE+ "("+
+                                            USER_ID + "INTEGER PRIMARY KEY AUTOINCREMENT," +
+                                            USER_EMAIL + "TEXT" +
+                                            USER_FNAME + "TEXT" +
+                                            USER_PASSWORD + "TEXT" +
+                                            USER_WEIGHT + "DOUBLE" +
+                                            USER_HEIGHT + "DOUBLE)" ;
     }
 
     //this is called if the database version number changes, it prevents user data from corrupting

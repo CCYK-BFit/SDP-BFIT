@@ -24,12 +24,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/login_txtWarning"
+        android:id="@+id/txtInvalidEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Alert"
+        android:text="Invalid Email"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,16 +43,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto"
-        android:text="Credentials cannot be null value."
+        android:text="The email address you entered is not valid!"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_txtWarning" />
+        app:layout_constraintTop_toBottomOf="@+id/txtInvalidEmail" />
 
     <Button
-        android:id="@+id/alertdialog_btnCancel"
+        android:id="@+id/btnCancel"
         android:layout_width="95dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@+id/info_invalidemail" />
 
     <Button
-        android:id="@+id/alertdialog_btnRetry"
+        android:id="@+id/btnRetry"
         android:layout_width="95dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"

@@ -20,7 +20,6 @@
         android:clipToPadding="false"
         android:paddingBottom="20dp">
 
-
         <ImageView
             android:id="@+id/imageViewIconSleep"
             android:layout_width="60dp"
