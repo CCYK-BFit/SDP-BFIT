@@ -1,16 +1,14 @@
-package com.example.sdp_bfit.calories;
+package com.example.sdp_bfit.signupandlogin;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CaloriesViewModel extends ViewModel {
-
+public class SignUpandLoginViewModel extends ViewModel{
     private MutableLiveData<String> mText;
 
-    public CaloriesViewModel() {
+    public SignUpandLoginViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is calories fragment");
     }
 
     public LiveData<String> getText() {

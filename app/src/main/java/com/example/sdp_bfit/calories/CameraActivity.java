@@ -71,19 +71,13 @@ public class CameraActivity extends AppCompatActivity {
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     public static String UPCValue ;
     public static String foodLabel , kcal;
-    private CameraActivityListener listener;
 
-    //not working
-    public interface CameraActivityListener{
-        void onMealDataReceived(String mealName,String mealCal);
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
-        //find fragment
-
         setContentView(R.layout.activity_camera);
+        //Define preview View
         previewView = findViewById(R.id.previewView);
         //bind the camera lifecyle to its own lifecycle owner,so no need to worry about opening/closing the camera
         cameraProviderFuture = ProcessCameraProvider.getInstance(CameraActivity.this);
@@ -109,12 +103,8 @@ public class CameraActivity extends AppCompatActivity {
     private void bindImageAnalysis(@NonNull ProcessCameraProvider cameraProvider){
         //unbind previous use case
         Preview preview = null;
-        if (cameraProvider == null) {
-            return;
-        }
-        if (preview != null) {
-            cameraProvider.unbind();
-        }
+        if (cameraProvider == null) { return; }
+        if (preview != null) { cameraProvider.unbind(); }
         //Initialize preview object
          preview = new Preview.Builder().build();
         //setup camera , select type of lens prefer
@@ -129,74 +119,57 @@ public class CameraActivity extends AppCompatActivity {
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this), new ImageAnalysis.Analyzer() {
             @Override
             public void analyze(@NonNull ImageProxy imageProxy) {
-                QRScanningActivity qrScanningActivity = new QRScanningActivity();
-                @SuppressLint("UnsafeExperimentalUsageError")
-                Image mediaImage = imageProxy.getImage();
-                if (mediaImage!=null) {
-                    InputImage image = InputImage.fromMediaImage(mediaImage,imageProxy.getImageInfo().getRotationDegrees());
 
-                        //set detection options
+           @SuppressLint("UnsafeExperimentalUsageError")
+            Image mediaImage = imageProxy.getImage();
+             if (mediaImage!=null) {
+             InputImage image = InputImage.fromMediaImage(mediaImage,imageProxy.getImageInfo().
+               getRotationDegrees());
+
+              //set detection options
                         BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
-                                .setBarcodeFormats(
-                                        Barcode.FORMAT_QR_CODE,Barcode.FORMAT_AZTEC
-                                )
-                                .build();
+                     .setBarcodeFormats(Barcode.FORMAT_QR_CODE,Barcode.FORMAT_AZTEC).build();
 
                         //get detector
-                        BarcodeScanner scanner = BarcodeScanning.getClient();
+                 BarcodeScanner scanner = BarcodeScanning.getClient();
 
 
-                        Task<List<Barcode>> result = scanner.process(image)
-                                .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
-                                    @Override
-                                    public void onSuccess(List<Barcode> barcodes) {
-                                        //scan success
+                        Task<List<Barcode>> result = scanner.process(image).addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
+                        @Override
+                        public void onSuccess(List<Barcode> barcodes) {
+                        //scan success
 
-                                        //get barcode
-                                        for (Barcode barcode:barcodes){
-                                            Rect bounds = barcode.getBoundingBox();
-                                            Point[] corners = barcode.getCornerPoints();
-                                            String rawValue = barcode.getRawValue();
-                                            int valueType = barcode.getValueType();
-                                            //get information from barcode
-                                            //can check out API reference for more value type
-//                                            switch(valueType){
-//                                                case Barcode.TYPE_URL:
-//                                                    String title = barcode.getUrl().getTitle();
-//                                                    String rawValueBarcode  = barcode.getRawValue();
-//                                                    View main = getLayoutInflater().inflate(R.layout.fragment_calories_form_bfast,null);
-//                                                    View calories = getLayoutInflater().inflate(R.layout.fragment_calories_main,null);
-//                                                    TextView textView = calories.findViewById(R.id.calories);
-//                                                    textView.setText(url);
-// load the text view
-//                                                    EditText txt = main.findViewById(R.id.editTextMealbfast);
+                        //get barcode
+                         for (Barcode barcode:barcodes){
+                           Rect bounds = barcode.getBoundingBox();
+                             Point[] corners = barcode.getCornerPoints();
+                             String rawValue = barcode.getRawValue();
+                             int valueType = barcode.getValueType();
+                            //get information from barcode
+                               //can check out API reference for more value type
+                             Toast.makeText(CameraActivity.this, "Bar code: "+rawValue, Toast.LENGTH_LONG).show();
 
-                                                    Toast.makeText(CameraActivity.this, "Bar code: "+rawValue, Toast.LENGTH_LONG).show();
+                                          UPCValue = rawValue;
+                                          //pass the UPC VALUE and send request to RapidAPI
+                                           if (UPCValue != null)  {
+                                               //connect to API service if UPC not null
+                                             APIcon();
+                                              Toast.makeText(CameraActivity.this, "Name:" + foodLabel + "Calories: " + kcal, Toast.LENGTH_SHORT).show();
+                                             }
 
-                                                            UPCValue = rawValue;
-                                                        //pass the UPC VALUE and send request to RapidAPI
-                                                        if (UPCValue != null)  {
+                                           break;
 
-                                                            APIcon();
-                                                            Toast.makeText(CameraActivity.this, "Name:" + foodLabel + "Calories: " + kcal, Toast.LENGTH_SHORT).show();
-
-//                                                            listener.onMealDataReceived(foodLabel,kcal);
-                                                           //TO-DO: Naviagte back to calorie main page
-                                                        }
-
-                                                    break;
-
-//                                            }
+//
                                         }
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
-                                                          @Override
-                                                          public void onFailure(@NonNull Exception e) {
-                                                              //task failed
-                                                              Toast.makeText(CameraActivity.this, "Unable to detect barcode/QR", Toast.LENGTH_SHORT).show();
-                                                          }
-                                                      }
+                                    @Override
+                                     public void onFailure(@NonNull Exception e) {
+                                    //task failed
+                                   Toast.makeText(CameraActivity.this, "Unable to detect barcode/QR", Toast.LENGTH_SHORT).show();
+                                   }
+                                }//end of failure listerner method
 
                                 ).addOnCompleteListener(new OnCompleteListener<List<Barcode>>() {
                                     @Override

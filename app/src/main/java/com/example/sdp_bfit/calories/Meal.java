@@ -7,14 +7,16 @@ public class Meal {
     private int mealSize;
     private int mealCal;
     private String mealRemark;
+    private String mealDate;
 
     //constructor
-    public Meal(String mealType, String mealName, int mealSize, int mealCal, String mealRemark) {
+    public Meal(String mealType, String mealName, int mealSize, int mealCal, String mealRemark,String mealDate) {
         this.mealType = mealType;
         this.mealName = mealName;
         this.mealSize = mealSize;
         this.mealCal = mealCal;
         this.mealRemark = mealRemark;
+        this.mealDate = mealDate;
 
     }
 
@@ -33,14 +35,18 @@ public class Meal {
     public int getMealSize(){return mealSize;}
     public int getMealCal(){return mealCal;}
     public String getMealRemark(){return mealRemark;}
+    public String getMealDate(){return mealDate;}
 
     //TOSTRING
     public String toString(){
-        return "MealType: " + mealType +
-                "Food: " + mealName +
-                "Serving size: " + mealSize +
-                "Calories: " + mealCal + "kcal" +
-                "Remark: " + mealRemark ;
+        return   "" +
+                "MealType: " + mealType +"\r\n"+
+                "Food: " + mealName +"\r\n"+
+                "Serving size: " + mealSize +"\r\n"+
+                "Calories: " + mealCal + "kcal" +"\r\n"+
+                "Remark: " + mealRemark+"\r\n"+
+                "Date : " + mealDate +
+                  "";
     }
 
 

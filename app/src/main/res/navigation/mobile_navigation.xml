@@ -17,6 +17,10 @@
         android:label="Calories"
         tools:layout="@layout/fragment_calories_main" />
 
+    <activity android:id="@+id/navigation_scan"
+        tools:layout="@layout/activity_camera"
+        />
+
 
     <fragment
         android:id="@+id/navigation_dashboard"

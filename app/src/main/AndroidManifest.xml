@@ -15,13 +15,14 @@
 
         android:largeHeap="true"
         android:theme="@style/Theme.SDP_Bfit">
-        <activity android:name=".calories.NutitionAPI"></activity>
-        <activity android:name=".calories.CameraActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".calories.CameraActivity"
+            android:parentActivityName=".MainActivity"/>
+<!--        <activity android:name=".MainActivity" />-->
+        <activity android:name=".landingpage.LandingpageActivity"/>
         <activity android:name=".signupandlogin.LoginActivity" />
         <activity android:name=".signupandlogin.SignUpActivity" />
         <activity
-            android:name=".landingpage.LandingpageActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
