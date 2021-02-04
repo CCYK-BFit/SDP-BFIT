@@ -46,5 +46,6 @@ private ArrayAdapter mealArrayAdapter;
     private void ShowBfastList(Database db) {
         mealArrayAdapter = new ArrayAdapter<Meal>(getContext(), android.R.layout.simple_list_item_1, db.getBfastDetails());
         ls_bfast.setAdapter(mealArrayAdapter);
+        mealArrayAdapter.notifyDataSetChanged();
     }
 }

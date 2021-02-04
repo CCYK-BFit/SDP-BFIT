@@ -90,7 +90,7 @@ public class Database extends SQLiteOpenHelper {
     public int calcCalories (Meal meal){
          try{
              SQLiteDatabase db = this.getReadableDatabase();
-            String query ="SELECT MAX((SELECT SUM(MEAL_CAL) FROM MEAL_TABLE GROUP BY MEAL_DATE ORDER BY MEAL_DATE DESC))";
+            String query ="SELECT SUM(MEAL_CAL) FROM MEAL_TABLE WHERE MEAL_DATE ="+"'"+todayDate+"';";
             Cursor cs = db.rawQuery(query,null);
             if(cs.moveToFirst()){
                 do {
@@ -116,7 +116,7 @@ public class Database extends SQLiteOpenHelper {
          List <Meal> mealList = new ArrayList<>();
          //get data from the db
         SQLiteDatabase db = this.getReadableDatabase();
-        String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Breakfast'";
+        String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Breakfast' AND MEAL_DATE="+"'"+todayDate+"';";
         Cursor cs = db.rawQuery(query,null);
         //if cursor is able to move to the first row, then the result is present
         if (cs.moveToFirst()) {

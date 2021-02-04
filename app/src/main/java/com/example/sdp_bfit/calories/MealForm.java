@@ -46,7 +46,15 @@ public class MealForm extends Fragment  {
             btn_cancel = root.findViewById(R.id.btn_cancel);
             //spinner
             spinner = root.findViewById(R.id.spinnerMealType);
-
+            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    editTextmealName.getText().clear();
+                    editTextmealCal.getText().clear();
+                    editTextmealSize.getText().clear();
+                    editTextmealRemark.getText().clear();
+                }
+            });
             btn_scan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

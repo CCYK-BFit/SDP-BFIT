@@ -49,34 +49,23 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
         View v = inflater.inflate(R.layout.fragment_calories_main, container, false);
         //toggle button
         btn_add_Bfast = v.findViewById(R.id.btn_add_bfast);
-//        btn_add_lunch = v.findViewById(R.id.btn_add_lunch);
-//        btn_add_snack = v.findViewById(R.id.btn_add_snack);
-//        btn_add_dinner = v.findViewById(R.id.btn_add_dinner);
          txt_calories_count = v.findViewById(R.id.txt_calories_count);
-        //button
-//        btn_scan_lunch = v.findViewById(R.id.btn_scan_lunch);
-//        btn_scan_snack = v.findViewById(R.id.btn_scan_snack);
-//        btn_scan_dinner= v. findViewById(R.id.btn_scan_dinner);
-//        btnDropDown = v.findViewById(R.id.btnDropdown);
-        //testing
         //Edittext
             mealname = v.findViewById(R.id.editTextMealName);
             mealcal = v.findViewById(R.id.editTextCalories);
             mealsize=v.findViewById(R.id.editTextServingSize);
-
-
         //pane
         card_bfast = v.findViewById(R.id.card_breakfast);
-//        card_lunch = v.findViewById(R.id.card_lunch);
-//        card_snack= v.findViewById(R.id.card_snack);
-//        card_dinner = v.findViewById(R.id.card_dinner);
         card_meal_history = v.findViewById(R.id.card_meal_history);
         mealhistoryContainer=v.findViewById(R.id.meal_history_container);
         //tablayout
         tabLayout=v.findViewById(R.id.tabLayout_meal_history);
         viewPager=v.findViewById(R.id.viewPager_Meal_history);
-
-
+        //set today date
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate today = LocalDate.now(ZoneId.of("Asia/Kuala_Lumpur"));
+            todayDate = String.valueOf(today);
+        }
         //Toogle Button Action
         btn_add_Bfast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -93,8 +82,6 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
                     removeNestedFragment(BfastTag);
                     card_meal_history.bringToFront();
                     mealhistoryContainer.bringToFront();
-//                    card_snack.bringToFront();
-//                    card_dinner.bringToFront();
                     displayCalories();
                 }
             }
@@ -107,60 +94,8 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
 
          new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(titles[position])).attach();
-//        btn_add_lunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if(isChecked){
-//                    //show lunch calories from
-//                    Fragment lunchFragment= new LunchForm();
-//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-//                    transaction.add(R.id.lunch_fragment_container, lunchFragment,LunchTag).show(lunchFragment).commit();
-//                    getView().findViewById(R.id.lunch_form_container).bringToFront(); }
-//                else{//hide calories form
-//                    removeNestedFragment(LunchTag);
-//                    card_snack.bringToFront();
-//                    card_dinner.bringToFront();
-//                }
-//            }
-//        });
-//        btn_add_snack.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if(isChecked){//show lunch calories from
-//                    Fragment snackFragment= new SnackForm();
-//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-//                    transaction.add(R.id.snack_fragment_container, snackFragment,SnackTag).show(snackFragment).commit();
-//                    getView().findViewById(R.id.snack_form_container).bringToFront(); }
-//                else{//hide calories form
-//                    removeNestedFragment(SnackTag);
-//                    card_dinner.bringToFront(); }
-//            }
-//        });
-//        btn_add_dinner.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if(isChecked){//show lunch calories from
-//                    Fragment dinnerFragment= new DinnerForm();
-//                    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).setReorderingAllowed(true);
-//                    transaction.add(R.id.dinner_fragment_container, dinnerFragment,DinnerTag).show(dinnerFragment).commit();
-//                    getView().findViewById(R.id.dinner_form_container).bringToFront();
-//                }
-//                else{//hide calories form
-//                    removeNestedFragment(DinnerTag); }
-//            }
-//        });
+
         displayCalories();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            LocalDate today = LocalDate.now(ZoneId.of("Asia/Kuala_Lumpur"));
-           todayDate = String.valueOf(today);
-        }
-
-
-
-
 
 
         return v;
@@ -178,7 +113,6 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
         transaction.hide(fragment).commit();
     }
 
-
     void displayCalories() {
         Database db = new Database(getContext());
         Meal meal = new Meal();
@@ -188,15 +122,7 @@ public class CaloriesFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //swipe refresh layout
-//        swipeRefreshLayout=view.findViewById(R.id.swipe_container);
-//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                displayCalories();
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        });
+
     }
 
     @Override
