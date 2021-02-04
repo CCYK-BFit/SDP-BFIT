@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
 import com.example.sdp_bfit.calories.Meal;
+import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +90,7 @@ public class Database extends SQLiteOpenHelper {
     public int calcCalories (Meal meal){
          try{
              SQLiteDatabase db = this.getReadableDatabase();
-            String query ="SELECT SUM(MEAL_CAL) AS TotalCal FROM MEAL_TABLE ";
+            String query ="SELECT MAX((SELECT SUM(MEAL_CAL) FROM MEAL_TABLE GROUP BY MEAL_DATE ORDER BY MEAL_DATE DESC))";
             Cursor cs = db.rawQuery(query,null);
             if(cs.moveToFirst()){
                 do {
@@ -126,7 +128,7 @@ public class Database extends SQLiteOpenHelper {
                 int mealSize = cs.getInt(3);
                 int mealCal = cs.getInt(4);
                 String mealRemark = cs.getString(5);
-                String mealDate = String.valueOf(todayDate);
+                String mealDate = cs.getString(6);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
             }while(cs.moveToNext());
@@ -155,7 +157,7 @@ public class Database extends SQLiteOpenHelper {
                 int mealSize = cs.getInt(3);
                 int mealCal = cs.getInt(4);
                 String mealRemark = cs.getString(5);
-                String mealDate = String.valueOf(todayDate);
+                String mealDate = cs.getString(6);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
             }while(cs.moveToNext());
@@ -183,7 +185,7 @@ public class Database extends SQLiteOpenHelper {
                 int mealSize = cs.getInt(3);
                 int mealCal = cs.getInt(4);
                 String mealRemark = cs.getString(5);
-                String mealDate = String.valueOf(todayDate);
+                String mealDate = cs.getString(6);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
             }while(cs.moveToNext());
@@ -211,7 +213,7 @@ public class Database extends SQLiteOpenHelper {
                 int mealSize = cs.getInt(3);
                 int mealCal = cs.getInt(4);
                 String mealRemark = cs.getString(5);
-                String mealDate = String.valueOf(todayDate);
+                String mealDate = cs.getString(6);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
             }while(cs.moveToNext());
@@ -223,13 +225,40 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return mealList;
     }
+    //getting data for x-axis : breakfast , lunch , dinner, snack
+    public ArrayList<String> getXVal(){
+        ArrayList<String> xVal = new ArrayList<String>();
+        //get data from the db
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query ="SELECT MEAL_TYPE FROM MEAL_TABLE GROUP BY MEAL_TYPE";
+        Cursor cs = db.rawQuery(query,null);
+        //if cursor is able to move to the first row, then the result is present
+        for (cs.moveToFirst(); !cs.isAfterLast(); cs.moveToNext()){
+            xVal.add(cs.getString(0));
+        }
+        //close cursor and database
+        cs.close();
+        db.close();
+        return xVal;
+    }
+    //getting data for y-axis : count calories of each meal type
+    public ArrayList<String> getyVal(){
+        ArrayList<String> yVal = new ArrayList<String>();
+        //get data from the db
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query ="SELECT SUM(MEAL_CAL) FROM MEAL_TABLE GROUP BY MEAL_TYPE";
+        Cursor cs = db.rawQuery(query,null);
+        //if cursor is able to move to the first row, then the result is present
+        for (cs.moveToFirst(); !cs.isAfterLast(); cs.moveToNext()){
+            yVal.add(cs.getString(0));
+        }
+        //close cursor and database
+        cs.close();
+        db.close();
+        return yVal;
+    }
 
-//    public void deleteItem(Object item) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(MEAL_TABLE, MEAL_ID+ " = ?",
-//                new String[]{String.valueOf(item.getId())});
-//        db.close();
-//    }
+
 }
 
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ public class MealForm extends Fragment  {
     public Button btn_scan,btn_save,btn_cancel;
     private EditText  editTextmealName,editTextmealCal, editTextmealSize, editTextmealRemark;
     Dialog alertDialog;
+    private Spinner spinner;
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,7 +44,8 @@ public class MealForm extends Fragment  {
             btn_scan = root.findViewById(R.id.btn_scan);
             btn_save = root.findViewById(R.id.btn_save);
             btn_cancel = root.findViewById(R.id.btn_cancel);
-
+            //spinner
+            spinner = root.findViewById(R.id.spinnerMealType);
 
             btn_scan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,7 +73,8 @@ public class MealForm extends Fragment  {
                             int mealSize = Integer.parseInt(editTextmealSize.getText().toString());
                             int mealCal = Integer.parseInt(editTextmealCal.getText().toString());
                             String mealRemark = editTextmealRemark.getText().toString();
-                            Meal meal = new Meal("Breakfast", mealName, mealSize, mealCal, mealRemark, todayDate);
+                            String mealType = spinner.getSelectedItem().toString();
+                            Meal meal = new Meal(mealType, mealName, mealSize, mealCal, mealRemark, todayDate);
                             Database db = new Database(getContext());
                             boolean success = db.insertMealDetails(meal);
                             if (success = true) {

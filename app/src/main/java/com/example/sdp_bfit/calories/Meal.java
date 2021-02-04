@@ -40,13 +40,11 @@ public class Meal {
     //TOSTRING
     public String toString(){
         return   "" +
-                "MealType: " + mealType +"\r\n"+
                 "Food: " + mealName +"\r\n"+
-                "Serving size: " + mealSize +"\r\n"+
-                "Calories: " + mealCal + "kcal" +"\r\n"+
+                "Calories: " + mealCal + " kcal" + " Serving size: " + mealSize +"(g)"+ "\r\n"+
                 "Remark: " + mealRemark+"\r\n"+
-                "Date : " + mealDate +
-                  "";
+                "Date : " + mealDate + "\r\n"+
+                " ";
     }
 
 

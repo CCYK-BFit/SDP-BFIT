@@ -36,5 +36,6 @@ public class LunchHistoryList extends Fragment {
     void ShowLunchList(Database db){
         lunchArrayAdapter = new ArrayAdapter<Meal>(getContext(), android.R.layout.simple_list_item_1,db.getLunchDetails());
         listView.setAdapter(lunchArrayAdapter);
+        lunchArrayAdapter.notifyDataSetChanged();
     }
 }

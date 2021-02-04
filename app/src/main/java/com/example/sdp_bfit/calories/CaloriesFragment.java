@@ -228,9 +228,9 @@ class DemoFragmentAdapter extends FragmentStateAdapter {
             case 0:
                 return new BfastHistoryList(); //ChildFragment1 at position 0
             case 1:
-                return new DinnerHistoryList(); //ChildFragment2 at position 1
+                return new LunchHistoryList(); //ChildFragment2 at position 1
             case 2:
-                return new LunchHistoryList(); //ChildFragment3 at position 2
+                return new DinnerHistoryList(); //ChildFragment3 at position 2
             case 3:
                 return new SnackHistoryList();
         }
