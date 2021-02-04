@@ -19,16 +19,26 @@ import java.util.List;
 import static com.example.sdp_bfit.calories.CaloriesFragment.todayDate;
 
 public class Database extends SQLiteOpenHelper {
-     public static final String MEAL_TABLE = "MEAL_TABLE";
-     public static final String MEAL_ID ="MEAL_ID";
-     public static final String MEAL_TYPE = "MEAL_TYPE";
-     public static final String MEAL_NAME = "MEAL_NAME";
-     public static final String MEAL_SIZE ="MEAL_SIZE";
-     public static final String MEAL_CAL = "MEAL_CAL";
-     public static final String MEAL_REMARK = "MEAL_REMARK";
+    public static final String MEAL_TABLE = "MEAL_TABLE";
+    public static final String MEAL_ID = "MEAL_ID";
+    public static final String MEAL_TYPE = "MEAL_TYPE";
+    public static final String MEAL_NAME = "MEAL_NAME";
+    public static final String MEAL_SIZE = "MEAL_SIZE";
+    public static final String MEAL_CAL = "MEAL_CAL";
+    public static final String MEAL_REMARK = "MEAL_REMARK";
     public static final String MEAL_DATE = "MEAL_DATE";
 
-    public Database(@Nullable Context context){super(context,"BFIT.db",null,1);}
+    public static final String SLEEP_TABLE = "SLEEP_TABLE";
+    public static String SLEEP_ID = "SLEEP_ID";
+    public static final String WAKE_TIME = "WAKE_TIME";
+    public static final String SLEEP_TIME = "SLEEP_TIME";
+    public static final String HOUR_DIFF = "HOUR_DIFF";
+
+
+
+    public Database(@Nullable Context context) {
+        super(context, "BFIT.db", null, 1);
+    }
 
     //this is called the first time the db is access, the code inside will create a new database
     @Override
@@ -56,6 +66,15 @@ public class Database extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(createWorkoutTableStatement);*/
         //sleep table
+
+        String createSleepTable = "CREATE TABLE " + SLEEP_TABLE+ "(" +
+                SLEEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                SLEEP_TIME + " TEXT," +
+                WAKE_TIME + " TEXT," +
+                HOUR_DIFF + " TEXT)" ;
+
+        sqLiteDatabase.execSQL(createSleepTable);
+
         //user table
     }
 
@@ -103,7 +122,7 @@ public class Database extends SQLiteOpenHelper {
 
             }
 
-             
+
          }catch(SQLException e){
 
          }
@@ -113,15 +132,15 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public List<Meal> getBfastDetails(){
-         List <Meal> mealList = new ArrayList<>();
-         //get data from the db
+        List<Meal> mealList = new ArrayList<>();
+        //get data from the db
         SQLiteDatabase db = this.getReadableDatabase();
         String query ="SELECT * FROM MEAL_TABLE WHERE MEAL_TYPE='Breakfast' AND MEAL_DATE="+"'"+todayDate+"';";
-        Cursor cs = db.rawQuery(query,null);
+        Cursor cs = db.rawQuery(query, null);
         //if cursor is able to move to the first row, then the result is present
         if (cs.moveToFirst()) {
             //loop through the result set and create new meal object, put them into mealList
-            do{
+            do {
 //                int mealID = cs.getInt(0);
                 String mealType = cs.getString(1);
                 String mealName = cs.getString(2);
@@ -131,15 +150,129 @@ public class Database extends SQLiteOpenHelper {
                 String mealDate = cs.getString(6);
                 Meal meal = new Meal(mealType,mealName,mealSize,mealCal,mealRemark,mealDate);
                 mealList.add(meal);
-            }while(cs.moveToNext());
-        }else{
+            } while (cs.moveToNext());
+        } else {
             //failure, do not do anything to the list
         }
         //close cursor and database
         cs.close();
         db.close();
         return mealList;
+    }
+
+    public boolean recordSleepTime(String sleeptime) {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase(); // insert action
+            ContentValues cv = new ContentValues();
+//            String waketime = "08:01";
+//            cv.put(WAKE_TIME,waketime);
+            cv.put(SLEEP_TIME, sleeptime);
+            // cv.put(SLEEP_HOURS,sleephours);
+            db.insert(SLEEP_TABLE, null, cv);
+            return true;
+        } catch (SQLException e) {
+
         }
+        return false;
+    }
+
+    public boolean updateWakeTime(String waketime) {
+
+        try {
+
+            String maxID = "";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT max(SLEEP_ID) FROM SLEEP_TABLE";
+            Cursor cs = db.rawQuery(query, null);
+
+            if (cs.moveToFirst()) {
+                do {
+                    maxID = cs.getString(0);
+                    System.out.println(cs.toString());
+                    cs.close();
+                    db.close();
+
+                } while (cs.moveToNext());
+
+            }
+            System.out.println("Max ID is :" + maxID);
+
+
+            SQLiteDatabase dbWrite = this.getWritableDatabase(); // insert action
+            ContentValues cv = new ContentValues();
+            cv.put(WAKE_TIME, waketime);
+            //cv.put(SLEEP_TIME,sleeptime);
+            // cv.put(SLEEP_HOURS,sleephours);
+            dbWrite.update(SLEEP_TABLE, cv, SLEEP_ID = maxID, null);
+
+
+            return true;
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    public boolean updateHourDiff(String hourDiff) {
+
+        try {
+
+            String maxID = "";
+
+            SQLiteDatabase db = this.getReadableDatabase();
+            String query = "SELECT max(SLEEP_ID) FROM SLEEP_TABLE";
+            Cursor cs = db.rawQuery(query, null);
+
+            if (cs.moveToFirst()) {
+                do {
+                    maxID = cs.getString(0);
+                    System.out.println(cs.toString());
+                    cs.close();
+                    db.close();
+
+                } while (cs.moveToNext());
+
+            }
+            System.out.println("Max ID is :" + maxID);
+
+
+            SQLiteDatabase dbWrite = this.getWritableDatabase(); // insert action
+            ContentValues cv = new ContentValues();
+            cv.put(HOUR_DIFF, hourDiff);
+
+            dbWrite.update(SLEEP_TABLE, cv, SLEEP_ID = maxID, null);
+
+            return true;
+        } catch (SQLException e) {
+
+        }
+        return false;
+    }
+
+    public Double displaySleepHours() {
+
+        String result = "";
+        Double hourDiff = 0.0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT round((strftime('%s', WAKE_TIME) - strftime('%s', SLEEP_TIME)) / 3600.0, 2) AS 'duration' FROM SLEEP_TABLE WHERE SLEEP_ID =(SELECT max(SLEEP_ID) FROM SLEEP_TABLE)";
+        Cursor cs = db.rawQuery(query, null);
+
+        if (cs.moveToFirst()) {
+            do {
+                hourDiff = cs.getDouble(0);
+                System.out.println(cs.toString());
+                cs.close();
+                db.close();
+
+            } while (cs.moveToNext());
+
+        }
+        System.out.println("hour diff is :" + hourDiff);
+        return hourDiff;
+    }
+
 
     public List<Meal> getLunchDetails(){
         List <Meal> mealList = new ArrayList<>();
@@ -169,6 +302,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return mealList;
     }
+
+
     public List<Meal> getDinnerDetails(){
         List <Meal> mealList = new ArrayList<>();
         //get data from the db
@@ -197,6 +332,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return mealList;
     }
+
+
     public List<Meal> getSnackDetails(){
         List <Meal> mealList = new ArrayList<>();
         //get data from the db
@@ -225,6 +362,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return mealList;
     }
+
+
     //getting data for x-axis : breakfast , lunch , dinner, snack
     public ArrayList<String> getXVal(){
         ArrayList<String> xVal = new ArrayList<String>();
@@ -241,6 +380,8 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return xVal;
     }
+
+
     //getting data for y-axis : count calories of each meal type
     public ArrayList<String> getyVal(){
         ArrayList<String> yVal = new ArrayList<String>();
@@ -259,7 +400,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-}
 
 
+    }
 
