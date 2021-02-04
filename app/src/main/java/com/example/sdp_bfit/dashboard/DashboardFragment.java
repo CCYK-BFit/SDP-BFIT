@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anychart.graphics.vector.Fill;
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.R;
+import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -59,6 +60,8 @@ import java.util.List;
 public class DashboardFragment extends Fragment  {
 
     private DashboardViewModel DashboardViewModel;
+    private TextView textView30;
+    private TextView textView10;
     //newly added
     private BarChart barChart;
     private SQLiteDatabase sqLiteDatabase;
@@ -98,11 +101,18 @@ public class DashboardFragment extends Fragment  {
 //        data.setBarWidth(0.9f); // set custom bar width
 //        data.setValueTextSize(12);
 //
+        //cal and distance show
+        textView30 = view.findViewById(R.id.textView30);
+        textView10 = view.findViewById(R.id.textView10);
+
+        displayCalories();
+        displayDistance();
 
 
 
 
         addNutritionDataToChart();
+
         return view;
     }
 
@@ -151,5 +161,15 @@ public class DashboardFragment extends Fragment  {
     public void onResume() {
         super.onResume();
         addNutritionDataToChart();
+    }
+    void displayCalories() {
+        Database db = new Database(getContext());
+        Workout workout = new Workout();
+        textView30.setText(String.valueOf(db.displayCal(workout)));
+    }
+    void displayDistance() {
+        Database db = new Database(getContext());
+        Workout workout = new Workout();
+        textView10.setText(String.valueOf(db.displayDis(workout)));
     }
 }
