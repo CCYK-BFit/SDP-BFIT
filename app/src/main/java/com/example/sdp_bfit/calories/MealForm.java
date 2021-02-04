@@ -88,19 +88,7 @@ public class MealForm extends Fragment  {
                             if (success = true) {
                                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
                             }
-                            // Reload current fragment
-//                              Fragment frg= new CaloriesFragment();
-//                            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//                            ft.detach(frg);
-//                            ft.attach(frg);
-//                            ft.commit();
 
-//                            Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.fragment_calories_container);
-//                            if (currentFragment instanceof "NAME OF YOUR FRAGMENT CLASS") {
-//                                FragmentTransaction fragTransaction =   (getActivity()).getFragmentManager().beginTransaction();
-//                                fragTransaction.detach(currentFragment);
-//                                fragTransaction.attach(currentFragment);
-//                                fragTransaction.commit();}
                         }
 
 

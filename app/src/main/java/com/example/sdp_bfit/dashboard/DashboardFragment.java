@@ -68,24 +68,8 @@ public class DashboardFragment extends Fragment  {
         DashboardViewModel =
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-//        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/ProductSans.ttf");
-
         barChart = (BarChart)view.findViewById(R.id.barchart_calories);
 
-        //need to change this
-//
-//            ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
-//
-//            for (int i = 0; i < dbHandler.queryYData().size(); i++)
-//                yVals.add(new BarEntry(dbHandler.queryYData().get(i), i));
-//
-//            ArrayList<String> xVals = new ArrayList<String>();
-//            for(int i = 0; i < dbHandler.queryXData().size(); i++)
-//                xVals.add(dbHandler.queryXData().get(i));
-//
-//            BarDataSet dataSet = new BarDataSet(yVals, "Pijnschaal");
-//            BarData data = new BarData(xVals, dataSet);
 
 //        ar.setData(data); b
 
@@ -114,39 +98,15 @@ public class DashboardFragment extends Fragment  {
 //        data.setBarWidth(0.9f); // set custom bar width
 //        data.setValueTextSize(12);
 //
-//        Description description = new Description();
-//        description.setTextColor(android.R.color.holo_blue_light);
-//        description.setText("All values in marks");
-//        bar.setDescription(description);
-//        bar.setDrawGridBackground(false);
-//
-//        bar.setData(data);
-//        bar.setFitBars(true); // make the x-axis fit exactly all bars
-//        bar.invalidate(); // refresh
-//        bar.getXAxis().setValueFormatter(new IndexAxisValueFormatter(barFactors));
-//
-//        Legend l = bar.getLegend();
-//        l.setFormSize(10f); // set the size of the legend forms/shapes
-//        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-////        l.setTypeface(font);
-//        l.setTextSize(12f);
-//        l.setTextColor(Color.BLACK);
-//        List<LegendEntry> lentries = new ArrayList<>();
-//        for (int i = 0; i < barFactors.size(); i++) {
-//            LegendEntry entry = new LegendEntry();
-//            entry.formColor = ColorTemplate.VORDIPLOM_COLORS[i];
-//            entry.label = barFactors.get(i);
-//            lentries.add(entry);
-//        }
-//        l.setXEntrySpace(5f); // set the space between the legend entries on the x-axis
-//        l.setYEntrySpace(5f);
-//        l.setCustom(lentries);
 
-        addDataToChart();
+
+
+
+        addNutritionDataToChart();
         return view;
     }
 
-    public void addDataToChart(){
+    public void addNutritionDataToChart(){
         Database db = new Database(getActivity());
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         ArrayList<String> yData = db.getyVal();
@@ -178,14 +138,18 @@ public class DashboardFragment extends Fragment  {
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
         barChart.invalidate();
-
-
+        //set description
+        Description description = new Description();
+        description.setTextColor(android.R.color.holo_blue_light);
+        description.setText("Total calories according to meal types");
+        barChart.setDescription(description);
+        barChart.setDrawGridBackground(false);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        addDataToChart();
+        addNutritionDataToChart();
     }
 }
