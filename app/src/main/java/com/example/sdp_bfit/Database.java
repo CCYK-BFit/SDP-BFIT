@@ -460,6 +460,34 @@ public class Database extends SQLiteOpenHelper {
         db.close();
         return yVal;
     }
+    public ArrayList<String> getWorkoutxVal(){
+        ArrayList<String> yVal = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT WORKOUT_DATE FROM WORKOUT_TABLE GROUP BY WORKOUT_DATE";
+        Cursor cs = db.rawQuery(query,null);
+        for(cs.moveToFirst();!cs.isAfterLast();cs.moveToNext()){
+            yVal.add(cs.getString(0));
+        }
+        cs.close();
+        db.close();
+        return yVal;
+    }
+    public ArrayList<String> getWorkoutyVal(){
+        ArrayList<String> yVal = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(WORKOUT_DIS)  FROM WORKOUT_TABLE GROUP BY WORKOUT_DATE ";
+        Cursor cs = db.rawQuery(query,null);
+        for(cs.moveToFirst();!cs.isAfterLast();cs.moveToNext()){
+            yVal.add(cs.getString(0));
+        }
+        cs.close();
+        db.close();
+        return yVal;
+    }
+
+
+
+
 
 
 

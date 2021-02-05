@@ -3,6 +3,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anychart.graphics.vector.Fill;
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.R;
+import com.github.mikephil.charting.animation.Easing;
 import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -31,6 +37,12 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.DataSet;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -48,8 +60,10 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.YAxisRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import com.github.mikephil.charting.utils.MPPointF;
@@ -64,7 +78,9 @@ public class DashboardFragment extends Fragment  {
     private TextView textView10;
     //newly added
     private BarChart barChart;
-    private SQLiteDatabase sqLiteDatabase;
+    private PieChart pieChart;
+    private LineChart lineChart;
+    private Database db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,35 +88,8 @@ public class DashboardFragment extends Fragment  {
                 new ViewModelProvider(this).get(DashboardViewModel.class);
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         barChart = (BarChart)view.findViewById(R.id.barchart_calories);
-
-
-//        ar.setData(data); b
-
-//        List<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(0f, 100f,"Breakfast"));
-//        entries.add(new BarEntry(1f, 82f,"Lunch"));
-//        entries.add(new BarEntry(2f, 95f,"Dinner"));
-//        entries.add(new BarEntry(3f, 69f,"Snack"));
-//
-//
-//
-//        BarDataSet bSet = new BarDataSet(entries, "calories");
-//        bSet.setColors(ColorTemplate.VORDIPLOM_COLORS);
-//
-//        ArrayList<String> barFactors = new ArrayList<>();
-//        barFactors.add("Breakfast");
-//        barFactors.add("Lunch");
-//        barFactors.add("Dinner");
-//        barFactors.add("Snack");
-//
-//
-//        XAxis xAxis = bar.getXAxis();
-//        xAxis.setGranularity(1f);
-//        xAxis.setGranularityEnabled(true);
-//        BarData data = new BarData(bSet);
-//        data.setBarWidth(0.9f); // set custom bar width
-//        data.setValueTextSize(12);
-//
+        pieChart = view.findViewById(R.id.piechart_workout);
+        lineChart = view.findViewById(R.id.linechart_sleep);
         //cal and distance show
         textView30 = view.findViewById(R.id.textView30);
         textView10 = view.findViewById(R.id.textView10);
@@ -112,17 +101,19 @@ public class DashboardFragment extends Fragment  {
 
 
         addNutritionDataToChart();
+        addWorkoutDataToChart();
+        addSleepDataToChart();
 
         return view;
     }
 
     public void addNutritionDataToChart(){
-        Database db = new Database(getActivity());
+         db = new Database(getActivity());
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         ArrayList<String> yData = db.getyVal();
 
         for(int i = 0; i<db.getyVal().size();i++){
-            BarEntry newBarEntry = new BarEntry(i, Float.parseFloat(db.getyVal().get(i)));
+            BarEntry newBarEntry = new BarEntry(i, Float.parseFloat(yData.get(i)));
             yVals.add(newBarEntry);
         }
         //x-axis data
@@ -147,20 +138,118 @@ public class DashboardFragment extends Fragment  {
         xAxis.setPosition(XAxisPosition.BOTTOM);
         xAxis.setGranularity(1f);
         xAxis.setGranularityEnabled(true);
-        barChart.invalidate();
         //set description
         Description description = new Description();
         description.setTextColor(android.R.color.holo_blue_light);
         description.setText("Total calories according to meal types");
         barChart.setDescription(description);
         barChart.setDrawGridBackground(false);
+        barChart.setNoDataText("Start tracking your calories to view this report!");
+        barChart.setNoDataTextColor(Color.rgb(0,230,93));
 
+        barChart.invalidate();
+
+
+
+    }
+
+    public void addWorkoutDataToChart(){
+       db = new Database(getActivity());
+       //y-axis data
+        ArrayList<PieEntry> yVals = new ArrayList<PieEntry>();
+        ArrayList<String> yData = db.getWorkoutyVal();
+
+        for(int i = 0; i<yData.size();i++){
+            PieEntry newPieEntry = new PieEntry(i, Float.parseFloat(yData.get(i)));
+            yVals.add(newPieEntry);
+        }
+        //x-axis data
+        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<String> xData = db.getWorkoutxVal();
+
+        for(int i =0; i<xData.size();i++){
+            xVals.add(xData.get(i));
+        }
+        //pass y-value to Piedataset
+        PieDataSet dataset = new PieDataSet(yVals,"Step Count");
+        //set pie colour theme
+        dataset.setColors(ColorTemplate.VORDIPLOM_COLORS);
+//        ArrayList<IPieDataSet> dataSets1 = new ArrayList<>();
+//        dataSets1.add(dataset);
+        //pass dataset into pie data
+        PieData data = new PieData(dataset);
+
+        //pass piedata into piechart
+       pieChart.setData(data);
+
+
+        Legend l = pieChart.getLegend();
+
+        //set description
+        Description description = new Description();
+        description.setTextColor(android.R.color.holo_blue_light);
+        description.setText("Step Count");
+        pieChart.setDescription(description);
+        pieChart.setNoDataText("Start tracking your step count to view this report!");
+        pieChart.invalidate();
+    
+    }
+    public void addSleepDataToChart(){
+        ArrayList<Entry> entryList = new ArrayList<>();
+        entryList.add(new Entry(0f,5f,"Monday"));
+        entryList.add(new Entry(1f,6f,"Tuesday"));
+        entryList.add(new Entry(2f,4f,"Wednesday"));
+        entryList.add(new Entry(3f,7f,"Thursday"));
+        entryList.add(new Entry(4f,8f,"Friday"));
+        entryList.add(new Entry(5f,9f,"Saturday"));
+        entryList.add(new Entry(6f,4f,"Sunday"));
+        ArrayList<String> weekDay = new ArrayList<>();
+        weekDay.add("M");
+        weekDay.add("T");
+        weekDay.add("W");
+        weekDay.add("T");
+        weekDay.add("F");
+        weekDay.add("S");
+        weekDay.add("S");
+
+        LineDataSet lineDataSet = new LineDataSet(entryList,"Day of the week");
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setDrawFilled(true);
+        lineDataSet.setFillDrawable(ContextCompat.getDrawable(getActivity(),R.drawable.gradient));
+        LineData lineData = new LineData(lineDataSet);
+
+
+        lineChart.setNoDataText("Start tracking your sleep hours to view the chart!");
+        lineChart.setData(lineData);
+        lineChart.setVisibleXRangeMaximum(10);
+        lineChart.setDrawBorders(false);
+        lineChart.setDrawGridBackground(false);
+
+        // Controlling left side of y axis
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        YAxis yAxisRight = lineChart.getAxisRight();
+
+        yAxisLeft.setGranularity(1f);
+        yAxisRight.setEnabled(false);
+        //customize x-axis
+        XAxis xAxis=lineChart.getXAxis();
+        xAxis.setPosition(XAxisPosition.BOTTOM);
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(weekDay));
+        // draw limit lines behind data instead of on top
+
+        xAxis.setDrawLimitLinesBehindData(false);
+        //customize legend
+        Legend legend = lineChart.getLegend();
+
+        lineChart.invalidate();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         addNutritionDataToChart();
+        addWorkoutDataToChart();
+        addSleepDataToChart();
     }
     void displayCalories() {
         Database db = new Database(getContext());
