@@ -71,6 +71,9 @@ import com.github.mikephil.charting.utils.MPPointF;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.mikephil.charting.animation.Easing.EaseInBounce;
+import static com.github.mikephil.charting.animation.Easing.EaseInExpo;
+
 public class DashboardFragment extends Fragment  {
 
     private DashboardViewModel DashboardViewModel;
@@ -224,7 +227,7 @@ public class DashboardFragment extends Fragment  {
         lineChart.setVisibleXRangeMaximum(10);
         lineChart.setDrawBorders(false);
         lineChart.setDrawGridBackground(false);
-
+       lineChart.animateY(1000, EaseInBounce);
         // Controlling left side of y axis
         YAxis yAxisLeft = lineChart.getAxisLeft();
         YAxis yAxisRight = lineChart.getAxisRight();

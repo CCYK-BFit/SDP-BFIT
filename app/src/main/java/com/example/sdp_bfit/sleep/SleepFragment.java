@@ -52,6 +52,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
     public static ArrayAdapter adapterSleep;
     private Button btn_add_alarm;
 
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
         final TextView textView = root.findViewById(R.id.txt_sleep);
         ButtonSleep = root.findViewById(R.id.buttonSleepNow);
         ButtonWake = root.findViewById(R.id.buttonWakeNow);
-
+        txtSleepHours = root.findViewById(R.id.txtSleepHours);
         SleepViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -110,7 +111,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
                     Toast.makeText(container.getContext(), waketime, Toast.LENGTH_SHORT).show();
                     System.out.println("successful inserted wake time");
                 }
-                txtSleepHours = root.findViewById(R.id.txtSleepHours);
+
 
                 txtSleepHours.setText(db.displaySleepHours().toString());
 
@@ -194,7 +195,11 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
 
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        Database db = new Database(getActivity());
+        txtSleepHours.setText(db.displaySleepHours().toString());
     }
+}
 
