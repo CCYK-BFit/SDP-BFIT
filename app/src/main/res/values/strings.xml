@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SDP_Bfit</string>
+    <string name="app_name">BFit</string>
     <string name="scan">Scan</string>
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>

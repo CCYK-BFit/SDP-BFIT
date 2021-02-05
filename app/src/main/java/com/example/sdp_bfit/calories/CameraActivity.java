@@ -127,9 +127,8 @@ public class CameraActivity extends AppCompatActivity {
                getRotationDegrees());
 
               //set detection options
-                        BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
+                BarcodeScannerOptions options = new BarcodeScannerOptions.Builder()
                      .setBarcodeFormats(Barcode.FORMAT_QR_CODE,Barcode.FORMAT_AZTEC).build();
-
                         //get detector
                  BarcodeScanner scanner = BarcodeScanning.getClient();
 
@@ -148,16 +147,14 @@ public class CameraActivity extends AppCompatActivity {
                             //get information from barcode
                                //can check out API reference for more value type
                              Toast.makeText(CameraActivity.this, "Bar code: "+rawValue, Toast.LENGTH_LONG).show();
-
-                                          UPCValue = rawValue;
+                                  UPCValue = rawValue;
                                           //pass the UPC VALUE and send request to RapidAPI
-                                           if (UPCValue != null)  {
-                                               //connect to API service if UPC not null
-                                             APIcon();
-                                              Toast.makeText(CameraActivity.this, "Name:" + foodLabel + "Calories: " + kcal, Toast.LENGTH_SHORT).show();
-                                             }
-
-                                           break;
+                                    if (UPCValue != null)  {
+                                        //connect to API service if UPC not null
+                                     APIcon();
+                                    Toast.makeText(CameraActivity.this, "Name:" + foodLabel + "Calories: " + kcal, Toast.LENGTH_SHORT).show();
+                                    }
+                                    break;
 
 //
                                         }
@@ -182,12 +179,6 @@ public class CameraActivity extends AppCompatActivity {
                                     }
                                 });
                         ;
-
-                        // detector stop running
-
-
-
-
 
                 }
             }
@@ -258,20 +249,6 @@ public class CameraActivity extends AppCompatActivity {
                             //to retrieve energy kcal
                             JSONObject nutrients = food.getJSONObject("nutrients");
                              kcal = nutrients.getString("ENERC_KCAL");
-                            //TO-DO: PASS FOOD NAME AND KCAL TO TEXTVIEW INSIDE FORM FRAGMENT
-
-//                            caloriesViewModel.mealName.setValue(foodLabel);
-//                            caloriesViewModel.mealCal.setValue(kcal);
-
-//                            textView.setText(foodLabel);
-//                            textView2.setText(kcal);
-
-//                            if (foodLabel != null){
-//                                listener.onDataLoaded();
-//                            }
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
