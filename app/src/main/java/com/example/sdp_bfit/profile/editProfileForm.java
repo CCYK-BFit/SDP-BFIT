@@ -11,11 +11,16 @@ import android.widget.EditText;
 import androidx.fragment.app.Fragment;
 
 import com.example.sdp_bfit.R;
+import static com.example.sdp_bfit.profile.ProfileFragment.ShowUsername;
+import static com.example.sdp_bfit.profile.ProfileFragment.ShowWeight;
+import static com.example.sdp_bfit.profile.ProfileFragment.ShowHeight;
+import static com.example.sdp_bfit.profile.ProfileFragment.ShowBMI;
 
 public class editProfileForm extends Fragment {
     private ProfileViewModel ProfileViewModel;
-    EditText editName, editWeight, editHeight;
-    Button btnSave, btnCancel;
+    public static EditText editName, editWeight, editHeight;
+    public static String name, weight, height;
+    public static Button btnSave, btnCancel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,23 +30,29 @@ public class editProfileForm extends Fragment {
         editHeight = v.findViewById(R.id.profile_editprofile_edittxtHeight);
         btnSave = v.findViewById(R.id.profile_editprofile_btnSave);
         btnCancel = v.findViewById(R.id.profile_editprofile_btnCancel);
-        // Need to define the child fragment layout
-        return inflater.inflate(R.layout.fragment_profile_form_editprofile, container, false);
 
 
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!TextUtils.isEmpty(editName.getText().toString())) {
-//                    ProfileFragment.ShowUsername.setText(editName.getText().toString());
-//                } else if (!TextUtils.isEmpty(editWeight.getText().toString())) {
-//                    ProfileFragment.ShowWeight.setText(editWeight.getText().toString());
-//                } else if (!TextUtils.isEmpty(editHeight.getText().toString())) {
-//                    ProfileFragment.ShowHeight.setText(editHeight.getText().toString());
-//                } else {
-//
-//                }
-//            }
-//        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name = editName.getText().toString();
+                weight = editWeight.getText().toString();
+                height = editHeight.getText().toString();
+
+                if (!TextUtils.isEmpty(name)) {
+                    ShowUsername.setText(name);
+                }
+                    ShowWeight.setText(weight);
+                    ShowHeight.setText(height);
+
+                    float uweight = Float.parseFloat(weight);
+                    float uheight = Float.parseFloat(height) / 100;
+                    float uBMI = uweight / (uheight * uheight);
+                    ShowBMI.setText(String.valueOf(uBMI));
+            }
+        });
+
+        return v;
     }
 }

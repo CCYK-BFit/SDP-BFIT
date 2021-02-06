@@ -1,12 +1,13 @@
 package com.example.sdp_bfit.signupandlogin;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -21,15 +22,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.MainActivity;
 import com.example.sdp_bfit.R;
-import com.example.sdp_bfit.profile.ProfileFragment;
+import com.example.sdp_bfit.profile.User;
 
 import java.util.regex.Pattern;
+
+
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -39,6 +42,9 @@ public class SignUpActivity extends AppCompatActivity {
     RadioButton radMale, radFemale;
     TextView LoginLink;
     Dialog InvalidEmailDialog, PasswordUnmatchedDialog, SignUpNoticeDialog;
+    Context context = this;
+    //This variable will store whether the user was male or female
+    String usergender = "";
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
         Height = findViewById(R.id.editHeight);
         btnSignUp = findViewById(R.id.btnSignUp);
         LoginLink = findViewById(R.id.txtClickLogin);
+        Database db = new Database(this);
 
         String txtLoginLink = "Click here to login";
 
@@ -78,6 +85,9 @@ public class SignUpActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = Email.getText().toString();
+                String fname = FullName.getText().toString();
+                String password = Password.getText().toString();
 //                if(TextUtils.isEmpty(Email.getText().toString()) && (TextUtils.isEmpty(FullName.getText().toString())) && (TextUtils.isEmpty(Password.getText().toString())) &&
 //                        (TextUtils.isEmpty(ConfirmationPassword.getText().toString())) && (TextUtils.isEmpty(radMale.getText().toString())) &&
 //                        (TextUtils.isEmpty(radFemale.getText().toString())) && (TextUtils.isEmpty(Weight.getText().toString())) &&
@@ -95,111 +105,157 @@ public class SignUpActivity extends AppCompatActivity {
 //                            .setNegativeButton("Cancel", null)
 //                            .show();
 //                } else
-                if (!EMAIL_ADDRESS_PATTERN.matcher(Email.getText().toString()).matches()) {
+                if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
                     openInvalidEmailDialog();
-                } else if (! Password.getText().toString().equals(ConfirmationPassword.getText().toString())){
+                } else if (db.showPassword(email) != "") {
+                    openExistedEmailDialog();
+                } else if (password.length() < 8 || password.isEmpty()){
+                    Password.setError("Must contain more than 8 characters");
+                    Password.getText().clear();
+                }
+                else if (!Password.getText().toString().equals(ConfirmationPassword.getText().toString())) {
                     openPasswordUnmatchedDialog();
-                } else if (FullName.getText().toString().isEmpty()) {
-                    FullName.setError("Must contain at least 5 characters");
+                } else if (fname.length() <= 5 || fname.isEmpty()) {
+//                    FullName.setError("Must contain at least 5 characters");
+                    FullName.getText().clear();
                 } else {
-                    Toast.makeText(SignUpActivity.this, "Sign Up Successfully!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    addUser(v);
                 }
             }
         });
     }
-    // invalid email dialog
-    private void openInvalidEmailDialog() {
-        InvalidEmailDialog = new Dialog(SignUpActivity.this);
-        InvalidEmailDialog.setContentView(R.layout.fragment_invalidemail);
-        InvalidEmailDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        InvalidEmailDialog.setCancelable(false);
+        //Check which gender is checked
+        public void radGenderClicked (View view){
+            // Check that the button is  now checked?
+            boolean checked = ((RadioButton) view).isChecked();
 
-        Button InvalidEmailDialogbtnCancel = InvalidEmailDialog.findViewById(R.id.btnCancel);
-        Button InvalidEmailDialogbtnRetry = InvalidEmailDialog.findViewById(R.id.btnRetry);
-
-        InvalidEmailDialogbtnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InvalidEmailDialog.dismiss();
+            // Check which radio button was clicked
+            switch (view.getId()) {
+                case R.id.radFemale:
+                    if (checked)
+                        usergender = "Female";
+                    break;
+                case R.id.radMale:
+                    if (checked)
+                        usergender = "Male";
+                    break;
             }
-        });
+        }
 
-        InvalidEmailDialogbtnRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InvalidEmailDialog.dismiss();
-                Email.getText().clear();
+        //add new user
+        public void addUser (View v) {
+            try {
+                String uEmail = Email.getText().toString();
+                String uFName = FullName.getText().toString();
+                String password = Password.getText().toString();
+                String gender = usergender;
+                Double uWeight = Double.parseDouble(Weight.getText().toString());
+                Double uHeight = Double.parseDouble(Height.getText().toString());
+                User user = new User(uEmail, uFName, password, gender, uWeight, uHeight);
+                Database db = new Database(context);
+                boolean success = db.insertUserDetails(user);
+                if (success = true) {
+                    Toast.makeText(SignUpActivity.this, "Sign Up Successfully!", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+                db.close();
+            } catch (Exception e) {
+
             }
-        });
-        InvalidEmailDialog.show();
+        }
+
+            // invalid email dialog
+            private void openInvalidEmailDialog () {
+                InvalidEmailDialog = new Dialog(SignUpActivity.this);
+                InvalidEmailDialog.setContentView(R.layout.fragment_invalidemail);
+                InvalidEmailDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                InvalidEmailDialog.setCancelable(false);
+
+                Button InvalidEmailDialogbtnCancel = InvalidEmailDialog.findViewById(R.id.btnCancel);
+                Button InvalidEmailDialogbtnRetry = InvalidEmailDialog.findViewById(R.id.btnRetry);
+
+                InvalidEmailDialogbtnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        InvalidEmailDialog.dismiss();
+                    }
+                });
+
+                InvalidEmailDialogbtnRetry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        InvalidEmailDialog.dismiss();
+                        Email.getText().clear();
+                    }
+                });
+                InvalidEmailDialog.show();
+            }
+
+            // password unmatched dialog
+            private void openPasswordUnmatchedDialog () {
+                PasswordUnmatchedDialog = new Dialog(SignUpActivity.this);
+                PasswordUnmatchedDialog.setContentView(R.layout.fragment_passwordunmatched);
+                PasswordUnmatchedDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                PasswordUnmatchedDialog.setCancelable(false);
+
+                Button PasswordUnmatchedDialogbtnCancel = PasswordUnmatchedDialog.findViewById(R.id.btnCancel);
+                Button PasswordUnmatchedDialogbtnRetry = PasswordUnmatchedDialog.findViewById(R.id.btnRetry);
+
+                PasswordUnmatchedDialogbtnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PasswordUnmatchedDialog.dismiss();
+                    }
+                });
+
+                PasswordUnmatchedDialogbtnRetry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PasswordUnmatchedDialog.dismiss();
+                        Password.getText().clear();
+                        ConfirmationPassword.getText().clear();
+                    }
+                });
+                PasswordUnmatchedDialog.show();
+            }
+
+         // alert users the email is existed
+        private void openExistedEmailDialog () {
+           // existed email notification
+            SignUpNoticeDialog = new Dialog(SignUpActivity.this);
+            SignUpNoticeDialog.setContentView(R.layout.fragment_signup_warning);
+            SignUpNoticeDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            SignUpNoticeDialog.setCancelable(false);
+
+            Button signup_notice_btnLogin = SignUpNoticeDialog.findViewById(R.id.signup_warning_btnLogin);
+            Button signup_notice_btnRetry = SignUpNoticeDialog.findViewById(R.id.signup_warning_btnRetry);
+
+            signup_notice_btnLogin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            signup_notice_btnRetry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SignUpNoticeDialog.dismiss();
+                    Email.getText().clear();
+                }
+            });
+            SignUpNoticeDialog.show();
+        }
+            // email format
+            public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+                    "[a-zA-Z0-9+._%-+]{1,256}" +
+                            "@" +
+                            "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
+                            "(" +
+                            "." +
+                            "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
+                            ")+"
+            );
     }
-    // password unmatched dialog
-    private void openPasswordUnmatchedDialog() {
-        PasswordUnmatchedDialog = new Dialog(SignUpActivity.this);
-        PasswordUnmatchedDialog.setContentView(R.layout.fragment_passwordunmatched);
-        PasswordUnmatchedDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        PasswordUnmatchedDialog.setCancelable(false);
-
-        Button PasswordUnmatchedDialogbtnCancel = PasswordUnmatchedDialog.findViewById(R.id.btnCancel);
-        Button PasswordUnmatchedDialogbtnRetry = PasswordUnmatchedDialog.findViewById(R.id.btnRetry);
-
-        PasswordUnmatchedDialogbtnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PasswordUnmatchedDialog.dismiss();
-            }
-        });
-
-        PasswordUnmatchedDialogbtnRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PasswordUnmatchedDialog.dismiss();
-                Password.getText().clear();
-                ConfirmationPassword.getText().clear();
-            }
-        });
-        PasswordUnmatchedDialog.show();
-    }
-    //        // alert users the email is existed
-//        private void openDialog () {
-//            // existed email notification
-//            SignUpNoticeDialog = new Dialog(SignUpActivity.this);
-//            SignUpNoticeDialog.setContentView(R.layout.fragment_signup_notice);
-//            SignUpNoticeDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            SignUpNoticeDialog.setCancelable(false);
-//
-//            Button signup_notice_btnLogin = SignUpNoticeDialog.findViewById(R.id.signup_notice_btnLogin);
-//            Button signup_notice_btnRetry = SignUpNoticeDialog.findViewById(R.id.signup_notice_btnRetry);
-//
-//            signup_notice_btnLogin.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                }
-//            });
-//
-//            signup_notice_btnRetry.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    SignUpNoticeDialog.dismiss();
-//                    Email.getText().clear();
-//                }
-//            });
-//            SignUpNoticeDialog.show();
-//        }
-    // email format
-    public final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
-            "[a-zA-Z0-9+._%-+]{1,256}" +
-                    "@" +
-                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,64}" +
-                    "(" +
-                    "." +
-                    "[a-zA-Z0-9][a-zA-Z0-9-]{0,25}" +
-                    ")+"
-    );
-
-
-}

@@ -74,7 +74,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintBottom_toTopOf="@id/profile_customization_horizontaldivider2"/>
+            app:layout_constraintBottom_toTopOf="@id/profile_customization_btnSave"/>
 
         <ToggleButton
             android:id="@+id/profile_customization_radbtn1"
@@ -89,165 +89,165 @@
             app:layout_constraintEnd_toEndOf="@+id/card_customization1"
             app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider1" />
 
-        <View
-            android:id="@+id/profile_customization_horizontaldivider2"
-            style="@style/Divider"
-            android:layout_width="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider2"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />-->
 
-        <TextView
-            android:id="@+id/txtCalander"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/roboto"
-            android:text="Calander"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtCalander"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Calander"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />-->
 
-        <ToggleButton
-            android:id="@+id/profile_customization_radbtn2"
-            android:layout_width="51dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/tbtn_on_off"
-            android:textOff=''
-            android:textOn=''
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn2"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />-->
 
-        <View
-            android:id="@+id/profile_customization_horizontaldivider3"
-            style="@style/Divider"
-            android:layout_width="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtCalander" />
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider3"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtCalander" />-->
 
-        <TextView
-            android:id="@+id/txtAverageSteps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/roboto"
-            android:text="Average Steps"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtAverageSteps"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Average Steps"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />-->
 
-        <ToggleButton
-            android:id="@+id/profile_customization_radbtn3"
-            android:layout_width="51dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/tbtn_on_off"
-            android:textOff=''
-            android:textOn=''
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn3"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />-->
 
-        <View
-            android:id="@+id/profile_customization_horizontaldivider4"
-            style="@style/Divider"
-            android:layout_width="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtAverageSteps" />
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider4"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtAverageSteps" />-->
 
-        <TextView
-            android:id="@+id/txtDailyCalories"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/roboto"
-            android:text="Daily Calories"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtDailyCalories"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Daily Calories"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />-->
 
-        <ToggleButton
-            android:id="@+id/profile_customization_radbtn4"
-            android:layout_width="51dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/tbtn_on_off"
-            android:textOff=''
-            android:textOn=''
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn4"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />-->
 
-        <View
-            android:id="@+id/profile_customization_horizontaldivider5"
-            style="@style/Divider"
-            android:layout_width="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtDailyCalories" />
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider5"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtDailyCalories" />-->
 
-        <TextView
-            android:id="@+id/txtAverageSleep"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/roboto"
-            android:text="Average Sleep"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtAverageSleep"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Average Sleep"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />-->
 
-        <ToggleButton
-            android:id="@+id/profile_customization_radbtn5"
-            android:layout_width="51dp"
-            android:layout_height="29dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/tbtn_on_off"
-            android:textOff=''
-            android:textOn=''
-            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn5"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />-->
 
         <Button
             android:id="@+id/profile_customization_btnSave"
@@ -262,7 +262,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_customization1"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintStart_toStartOf="@id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtAverageSleep" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />
 
         <Button
             android:id="@+id/profile_customization_btnCancel"
@@ -278,7 +278,7 @@
             app:layout_constraintEnd_toEndOf="@+id/card_customization1"
             app:layout_constraintHorizontal_bias="0.78"
             app:layout_constraintStart_toStartOf="@+id/card_customization1"
-            app:layout_constraintTop_toBottomOf="@+id/txtAverageSleep" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

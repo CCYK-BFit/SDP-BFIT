@@ -34,9 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/roboto_bold"
-        android:hint="UserID"
         android:textColor="@color/white"
-        android:textColorHint="@color/grey"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.05"
@@ -97,7 +95,7 @@
         android:textColorHint="@color/grey"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintHorizontal_bias="0.245"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_txtShowUserEmail" />
 
@@ -143,6 +141,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
         app:layout_constraintTop_toBottomOf="@id/profile_txtShowUserEmail" />
 
     <TextView
@@ -187,7 +186,7 @@
         android:textColorHint="@color/grey"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.772"
+        app:layout_constraintHorizontal_bias="0.82"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_txtShowUserEmail" />
 
