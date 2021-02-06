@@ -97,20 +97,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/curve_view">
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            style="@android:style/Widget.DeviceDefault.CalendarView"
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/materialCalView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:focusedMonthDateColor="@color/green"
-            android:selectedWeekBackgroundColor="@color/grey"
-            android:showWeekNumber="true"
-            android:unfocusedMonthDateColor="#8E8E8E"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:mcv_selectionColor="#00E65D"
+            app:mcv_showOtherDates="all"
+            tools:ignore="MissingConstraints">
+
+        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
