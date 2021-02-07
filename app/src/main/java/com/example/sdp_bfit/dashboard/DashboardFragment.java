@@ -1,6 +1,4 @@
 package com.example.sdp_bfit.dashboard;
-import android.graphics.Color;
-import android.media.Image;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,8 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +26,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anychart.graphics.vector.Fill;
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.R;
-import com.example.sdp_bfit.profile.customizationForm;
-import static com.example.sdp_bfit.profile.customizationForm.a;
-import static com.example.sdp_bfit.signupandlogin.LoginActivity.user;
 import com.github.mikephil.charting.animation.Easing;
 import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.charts.BarChart;
@@ -91,15 +86,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import static com.github.mikephil.charting.animation.Easing.EaseInBounce;
-import static com.github.mikephil.charting.animation.Easing.EaseInExpo;
+import static com.example.sdp_bfit.profile.customizationForm.a;
+import static com.example.sdp_bfit.signupandlogin.LoginActivity.user;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment  {
 
     private DashboardViewModel DashboardViewModel;
-    public static TextView txtDailyQuotes, txtAuthor, txtWelcome, txtuname;
-    public ImageView profilepic;
-    public static View cardCalendar, childcardCalendar;
     private TextView textView30;
     private TextView textView10;
     private MaterialCalendarView materialCalView;
@@ -108,6 +100,8 @@ public class DashboardFragment extends Fragment {
     private PieChart pieChart;
     private LineChart lineChart;
     private Database db;
+    public static TextView txtDailyQuotes, txtAuthor, txtWelcome, txtuname;
+    public ImageView profilepic;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -120,13 +114,14 @@ public class DashboardFragment extends Fragment {
         //cal and distance show
         textView30 = view.findViewById(R.id.textView30);
         textView10 = view.findViewById(R.id.textView10);
+        txtDailyQuotes = view.findViewById(R.id.txtDashboardDailyQuotes);
+        txtAuthor = view.findViewById(R.id.txtAuthor);
+        profilepic = view.findViewById(R.id.imageViewProfile);
+        txtWelcome = view.findViewById(R.id.txtWelcome);
+        txtuname = view.findViewById(R.id.txtUserName);
 
         displayCalories();
         displayDistance();
-
-
-
-
         addNutritionDataToChart();
         addWorkoutDataToChart();
         addSleepDataToChart();
@@ -137,39 +132,6 @@ public class DashboardFragment extends Fragment {
 
         materialCalView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
-        txtDailyQuotes = root.findViewById(R.id.txtDashboardDailyQuotes);
-        txtAuthor = root.findViewById(R.id.txtAuthor);
-        profilepic = root.findViewById(R.id.imageViewProfile);
-        txtWelcome = root.findViewById(R.id.txtWelcome);
-        txtuname = root.findViewById(R.id.txtUserName);
-//        cardCalendar = root.findViewById(R.id.card_Calendar);
-//        childcardCalendar = root.findViewById(R.id.calendarView);
-
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (a) {
-            removeDailyQuotes();
-        }
-    }
-
-    public void removeDailyQuotes() {
-        txtDailyQuotes.setVisibility(View.INVISIBLE);
-        txtAuthor.setVisibility(View.INVISIBLE);
-        txtWelcome.setVisibility(View.VISIBLE);
-        txtuname.setVisibility(View.VISIBLE);
-        String uname = user.getUserFName();
-        txtuname.setText(uname.toString());
-    }
-}
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 new AlertDialog.Builder(getActivity())
                         .setIcon(android.R.drawable.ic_menu_help)
@@ -227,8 +189,25 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (a) {
+            removeDailyQuotes();
+        }
+    }
+
+    public void removeDailyQuotes() {
+        txtDailyQuotes.setVisibility(View.INVISIBLE);
+        txtAuthor.setVisibility(View.INVISIBLE);
+        txtWelcome.setVisibility(View.VISIBLE);
+        txtuname.setVisibility(View.VISIBLE);
+        String uname = user.getUserFName();
+        txtuname.setText(uname.toString());
+    }
+
     public void addNutritionDataToChart(){
-         db = new Database(getActivity());
+        db = new Database(getActivity());
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
         ArrayList<String> yData = db.getyVal();
 
@@ -252,7 +231,7 @@ public class DashboardFragment extends Fragment {
         BarData data = new BarData(dataSets1);
         //putting 4 meal type in x-axis
         barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xVals));
-       //pass bardata into barchart
+        //pass bardata into barchart
         barChart.setData(data);
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxisPosition.BOTTOM);
@@ -274,8 +253,8 @@ public class DashboardFragment extends Fragment {
     }
 
     public void addWorkoutDataToChart(){
-       db = new Database(getActivity());
-       //y-axis data
+        db = new Database(getActivity());
+        //y-axis data
         ArrayList<PieEntry> yVals = new ArrayList<PieEntry>();
         ArrayList<String> yData = db.getWorkoutyVal();
 
@@ -300,7 +279,7 @@ public class DashboardFragment extends Fragment {
         PieData data = new PieData(dataset);
 
         //pass piedata into piechart
-       pieChart.setData(data);
+        pieChart.setData(data);
 
 
         Legend l = pieChart.getLegend();
@@ -344,7 +323,7 @@ public class DashboardFragment extends Fragment {
         lineChart.setVisibleXRangeMaximum(10);
         lineChart.setDrawBorders(false);
         lineChart.setDrawGridBackground(false);
-       lineChart.animateY(1000, EaseInBounce);
+
         // Controlling left side of y axis
         YAxis yAxisLeft = lineChart.getAxisLeft();
         YAxis yAxisRight = lineChart.getAxisRight();

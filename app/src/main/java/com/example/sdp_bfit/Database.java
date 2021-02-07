@@ -42,7 +42,6 @@ public class Database extends SQLiteOpenHelper {
     private static final String USER_WEIGHT = "USER_WEIGHT";
     private static final String USER_HEIGHT = "USER_HEIGHT";
 
-    public Database(@Nullable Context context){super(context,"BFIT.db",null,1);}
     public static final String WORKOUT_TABLE = "WORKOUT_TABLE";
     public static final String WORKOUT_STEP = "WORKOUT_STEP";
     public static final String WORKOUT_DATE = "WORKOUT_DATE";
@@ -95,7 +94,6 @@ public class Database extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(createPeriodTableStatement);
 
-        sqLiteDatabase.execSQL(createWorkoutTableStatement);*/
         //sleep table
         //User Table
         String createUserTableStatement = "CREATE TABLE " +USER_PROFILE+ "(" +
@@ -629,7 +627,7 @@ public class Database extends SQLiteOpenHelper {
         db.update("USER_PROFILE", cv, "WHERE USER_EMAIL=?", new String[]{uEmail});
         return true;
     }
-}
+
 
     //getting data for x-axis : breakfast , lunch , dinner, snack
     public ArrayList<String> getXVal(){
