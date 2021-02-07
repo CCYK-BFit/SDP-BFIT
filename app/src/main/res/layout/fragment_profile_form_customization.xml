@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_customizationform"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bggrey"
+    android:paddingBottom="100dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_customization1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/white_box"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
+
+
+<!--        <View-->
+<!--            android:id="@+id/ic_customization1"-->
+<!--            android:layout_width="30dp"-->
+<!--            android:layout_height="32dp"-->
+<!--            android:layout_marginTop="18dp"-->
+<!--            android:background="@drawable/ic_customization"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintHorizontal_bias="0.085"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/card_customization1" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtCustomization1"-->
+<!--            android:layout_width="180dp"-->
+<!--            android:layout_height="35dp"-->
+<!--            android:layout_marginTop="21dp"-->
+<!--            android:fontFamily="@font/roboto_bold"-->
+<!--            android:inputType="text"-->
+<!--            android:text="Customization"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18sp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintHorizontal_bias="0.20"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/ic_customization1"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/card_customization1" />-->
+
+        <View
+            android:id="@+id/profile_customization_horizontaldivider1"
+            style="@style/Divider"
+            android:layout_width="0dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
+            app:layout_constraintStart_toStartOf="@+id/card_customization1"
+            app:layout_constraintBottom_toTopOf="@id/txtDailyQuote" />
+
+        <TextView
+            android:id="@+id/txtDailyQuote"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/roboto"
+            android:text="Daily Quote"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/card_customization1"
+            app:layout_constraintBottom_toTopOf="@id/profile_customization_btnSave"/>
+
+        <ToggleButton
+            android:id="@+id/profile_customization_radbtn1"
+            android:layout_width="51dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/tbtn_on_off"
+            android:textOff=''
+            android:textOn=''
+            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
+            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider1" />
+
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider2"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtCalander"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Calander"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />-->
+
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn2"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider2" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider3"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtCalander" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtAverageSteps"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Average Steps"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />-->
+
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn3"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider3" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider4"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtAverageSteps" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtDailyCalories"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Daily Calories"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />-->
+
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn4"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider4" />-->
+
+<!--        <View-->
+<!--            android:id="@+id/profile_customization_horizontaldivider5"-->
+<!--            style="@style/Divider"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="15dp"-->
+<!--            android:layout_marginRight="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtDailyCalories" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtAverageSleep"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="25dp"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:fontFamily="@font/roboto"-->
+<!--            android:text="Average Sleep"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />-->
+
+<!--        <ToggleButton-->
+<!--            android:id="@+id/profile_customization_radbtn5"-->
+<!--            android:layout_width="51dp"-->
+<!--            android:layout_height="29dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="25dp"-->
+<!--            android:layout_marginRight="25dp"-->
+<!--            android:background="@drawable/tbtn_on_off"-->
+<!--            android:textOff=''-->
+<!--            android:textOn=''-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/card_customization1"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_customization_horizontaldivider5" />-->
+
+        <Button
+            android:id="@+id/profile_customization_btnSave"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_green"
+            android:fontFamily="@font/roboto"
+            android:text="Save"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:backgroundTint="@color/green"
+            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="@id/card_customization1"
+            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />
+
+        <Button
+            android:id="@+id/profile_customization_btnCancel"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/btn_green_border"
+            android:fontFamily="@font/roboto"
+            android:text="Cancel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/green"
+            app:backgroundTint="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/card_customization1"
+            app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintStart_toStartOf="@+id/card_customization1"
+            app:layout_constraintTop_toBottomOf="@+id/txtDailyQuote" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

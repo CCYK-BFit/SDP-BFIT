@@ -3,33 +3,33 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/signup_notice"
+    android:id="@+id/alertdialog"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:background="@drawable/white_box"
     android:divider="@android:color/transparent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">>
+    app:layout_constraintTop_toTopOf="parent">
 
     <View
-        android:id="@+id/ic_signup_notice"
+        android:id="@+id/ic_warning"
         android:layout_width="33dp"
         android:layout_height="36dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/ic_notification"
+        android:background="@drawable/ic_warning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/signup_txtNotice"
+        android:id="@+id/txtInvalidEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Notice"
+        android:text="Invalid Email"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,36 +38,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/info_ExistedEmail"
+        android:id="@+id/info_invalidemail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/roboto"
-        android:text="E-mail already exist."
+        android:text="The email address you entered is not valid!"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_txtNotice" />
+        app:layout_constraintTop_toBottomOf="@+id/txtInvalidEmail" />
 
     <Button
-        android:id="@+id/signup_notice_btnLogin"
+        android:id="@+id/btnCancel"
         android:layout_width="95dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/btn_green"
         android:fontFamily="@font/roboto"
-        android:text="@string/login"
+        android:text="@string/cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:backgroundTint="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_ExistedEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/info_invalidemail" />
 
     <Button
-        android:id="@+id/signup_notice_btnRetry"
+        android:id="@+id/btnRetry"
         android:layout_width="95dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
@@ -80,6 +80,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_ExistedEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/info_invalidemail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

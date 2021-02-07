@@ -1,4 +1,6 @@
 package com.example.sdp_bfit.dashboard;
+import android.graphics.Color;
+import android.media.Image;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,6 +28,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.anychart.graphics.vector.Fill;
 import com.example.sdp_bfit.Database;
 import com.example.sdp_bfit.R;
+import com.example.sdp_bfit.profile.customizationForm;
+import static com.example.sdp_bfit.profile.customizationForm.a;
+import static com.example.sdp_bfit.signupandlogin.LoginActivity.user;
 import com.github.mikephil.charting.animation.Easing;
 import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.charts.BarChart;
@@ -88,9 +94,12 @@ import java.util.List;
 import static com.github.mikephil.charting.animation.Easing.EaseInBounce;
 import static com.github.mikephil.charting.animation.Easing.EaseInExpo;
 
-public class DashboardFragment extends Fragment  {
+public class DashboardFragment extends Fragment {
 
     private DashboardViewModel DashboardViewModel;
+    public static TextView txtDailyQuotes, txtAuthor, txtWelcome, txtuname;
+    public ImageView profilepic;
+    public static View cardCalendar, childcardCalendar;
     private TextView textView30;
     private TextView textView10;
     private MaterialCalendarView materialCalView;
@@ -128,6 +137,39 @@ public class DashboardFragment extends Fragment  {
 
         materialCalView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
+            }
+        });
+
+        txtDailyQuotes = root.findViewById(R.id.txtDashboardDailyQuotes);
+        txtAuthor = root.findViewById(R.id.txtAuthor);
+        profilepic = root.findViewById(R.id.imageViewProfile);
+        txtWelcome = root.findViewById(R.id.txtWelcome);
+        txtuname = root.findViewById(R.id.txtUserName);
+//        cardCalendar = root.findViewById(R.id.card_Calendar);
+//        childcardCalendar = root.findViewById(R.id.calendarView);
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (a) {
+            removeDailyQuotes();
+        }
+    }
+
+    public void removeDailyQuotes() {
+        txtDailyQuotes.setVisibility(View.INVISIBLE);
+        txtAuthor.setVisibility(View.INVISIBLE);
+        txtWelcome.setVisibility(View.VISIBLE);
+        txtuname.setVisibility(View.VISIBLE);
+        String uname = user.getUserFName();
+        txtuname.setText(uname.toString());
+    }
+}
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 new AlertDialog.Builder(getActivity())
                         .setIcon(android.R.drawable.ic_menu_help)
@@ -270,7 +312,7 @@ public class DashboardFragment extends Fragment  {
         pieChart.setDescription(description);
         pieChart.setNoDataText("Start tracking your step count to view this report!");
         pieChart.invalidate();
-    
+
     }
     public void addSleepDataToChart(){
         ArrayList<Entry> entryList = new ArrayList<>();

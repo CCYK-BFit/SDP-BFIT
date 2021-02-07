@@ -11,4 +11,6 @@
     <color name="bggrey">#F3F3F3</color>
     <color name="green">#00E65D</color>
     <color name="transparent">#00000000</color>
+    <color name="lightGray">#E3E3E3</color>
+    <color name="darkGray">#959595</color>
 </resources>

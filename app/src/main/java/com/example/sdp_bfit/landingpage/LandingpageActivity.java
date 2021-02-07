@@ -7,9 +7,6 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 
 import com.example.sdp_bfit.R;
 import com.example.sdp_bfit.signupandlogin.LoginActivity;
