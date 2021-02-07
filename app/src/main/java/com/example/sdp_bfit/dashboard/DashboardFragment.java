@@ -1,4 +1,5 @@
 package com.example.sdp_bfit.dashboard;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -11,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -67,8 +70,19 @@ import com.github.mikephil.charting.renderer.YAxisRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import com.github.mikephil.charting.utils.MPPointF;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+import org.threeten.bp.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.github.mikephil.charting.animation.Easing.EaseInBounce;
@@ -79,6 +93,7 @@ public class DashboardFragment extends Fragment  {
     private DashboardViewModel DashboardViewModel;
     private TextView textView30;
     private TextView textView10;
+    private MaterialCalendarView materialCalView;
     //newly added
     private BarChart barChart;
     private PieChart pieChart;
@@ -106,6 +121,66 @@ public class DashboardFragment extends Fragment  {
         addNutritionDataToChart();
         addWorkoutDataToChart();
         addSleepDataToChart();
+
+        //Period Calendar
+        materialCalView = view.findViewById(R.id.materialCalView);
+        materialCalView.setDateSelected(CalendarDay.today(), true);
+
+        materialCalView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                new AlertDialog.Builder(getActivity())
+                        .setIcon(android.R.drawable.ic_menu_help)
+                        .setTitle("Set Period Date")
+                        .setMessage("Start Period?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                materialCalView.removeDecorators();
+
+
+                                materialCalView.addDecorator(new EventDecorator(000000, Collections.singleton(date)));
+                                LocalDate localdate= date.getDate();
+                                for(int i=0;i<7;i++){
+                                    LocalDate adddate = localdate.plusDays(i);
+                                    CalendarDay ii=CalendarDay.from(adddate);
+                                    materialCalView.addDecorator(new EventDecorator(000000, Collections.singleton(ii)));
+                                }
+
+
+                                for(int i=30;i<1000;i+=30){
+                                    LocalDate thrityday = localdate.plusDays(i);
+                                    CalendarDay dayss=CalendarDay.from(thrityday);
+                                    materialCalView.addDecorator(new EventDecorator(000000, Collections.singleton(dayss)));
+
+                                    for(int j=0;j<7;j++){
+                                        LocalDate adddate = thrityday.plusDays(j);
+                                        CalendarDay ii=CalendarDay.from(adddate);
+                                        materialCalView.addDecorator(new EventDecorator(000000, Collections.singleton(ii)));
+                                    }
+
+
+                                }
+                                String startdate = localdate.toString();
+
+                                Period period = new Period(startdate);
+                                Database db = new Database(getContext());
+                                boolean success = db.insertPeriod(period);
+                                if (success = true) {
+                                    Toast.makeText(getContext(),"Period Date Saved",Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(getContext(),"Save Period Date failed",Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+
+
+            }
+        });
+
 
         return view;
     }
@@ -246,6 +321,16 @@ public class DashboardFragment extends Fragment  {
 
         lineChart.invalidate();
     }
+// void Periodr(){
+//        Database db = new Database(getContext());
+//        Period period = new Period();
+//        String dates=String.valueOf(db.getLastPeriod(period));
+//     LocalDate datel = LocalDate.parse(dates);
+//     CalendarDay datec=CalendarDay.from(datel);
+//     materialCalView.addDecorator(new EventDecorator(000000, Collections.singleton(datec)));
+//
+//
+//    }
 
     @Override
     public void onResume() {
@@ -253,6 +338,7 @@ public class DashboardFragment extends Fragment  {
         addNutritionDataToChart();
         addWorkoutDataToChart();
         addSleepDataToChart();
+//        Periodr();
     }
     void displayCalories() {
         Database db = new Database(getContext());
@@ -263,5 +349,24 @@ public class DashboardFragment extends Fragment  {
         Database db = new Database(getContext());
         Workout workout = new Workout();
         textView10.setText(String.valueOf(db.displayDis(workout)));
+    }
+    public static class EventDecorator implements DayViewDecorator {
+        private final int color;
+        private final HashSet<CalendarDay> dates;
+
+        public EventDecorator(int color, Collection<CalendarDay> dates) {
+            this.color = color;
+            this.dates = new HashSet<>(dates);
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            return dates.contains(day);
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+            view.addSpan(new DotSpan(5, color));
+        }
     }
 }

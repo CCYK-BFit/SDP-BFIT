@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.Nullable;
 
 import com.example.sdp_bfit.calories.Meal;
+import com.example.sdp_bfit.dashboard.Period;
 import com.example.sdp_bfit.workout.Workout;
 import com.github.mikephil.charting.data.Entry;
 
@@ -28,11 +29,16 @@ public class Database extends SQLiteOpenHelper {
     public static final String MEAL_CAL = "MEAL_CAL";
     public static final String MEAL_REMARK = "MEAL_REMARK";
     public static final String MEAL_DATE = "MEAL_DATE";
+
     public static final String WORKOUT_TABLE = "WORKOUT_TABLE";
     public static final String WORKOUT_STEP = "WORKOUT_STEP";
     public static final String WORKOUT_DATE = "WORKOUT_DATE";
     public static final String WORKOUT_CAL = "WORKOUT_CAL";
     public static final String WORKOUT_DIS = "WORKOUT_DIS";
+
+    public static final String PERIOD_TABLE = "PERIOD_TABLE";
+    public static final String PERIOD_ID = "PERIOD_ID";
+    public static final String PERIOD_START = "PERIOD_START";
 
     public static final String SLEEP_TABLE = "SLEEP_TABLE";
     public static String SLEEP_ID = "SLEEP_ID";
@@ -68,6 +74,15 @@ public class Database extends SQLiteOpenHelper {
                 WORKOUT_DATE + " TEXT)";
 
         sqLiteDatabase.execSQL(createWorkoutTableStatement);
+
+        //period table
+        String createPeriodTableStatement = "CREATE TABLE " +PERIOD_TABLE+ "(" +
+                PERIOD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                PERIOD_START + " TEXT)";
+
+        sqLiteDatabase.execSQL(createPeriodTableStatement);
+
+
         //sleep table
 
         String createSleepTable = "CREATE TABLE " + SLEEP_TABLE+ "(" +
@@ -125,6 +140,40 @@ public class Database extends SQLiteOpenHelper {
         }
         return  false;
     }
+    public boolean insertPeriod (Period period){
+        try {
+            SQLiteDatabase db = this.getWritableDatabase(); // insert action
+            ContentValues cv = new ContentValues();
+            cv.put(PERIOD_START, period.getStartDate());
+
+            db.insert(PERIOD_TABLE, null, cv);
+            return true;
+        }catch(SQLException e){
+
+        }
+        return  false;
+    }
+//        public String getLastPeriod (Period period) {
+//        try {
+//            SQLiteDatabase db = this.getReadableDatabase();
+//            String query = "SELECT PERIOD_START FROM PERIOD_TABLE ";
+//            Cursor cs = db.rawQuery(query, null);
+//            if (cs.moveToLast()) {
+//                do {
+//
+//                    String lp = cs.getString(0);
+//                    cs.close();
+//                    db.close();
+//                    return lp;
+//
+//                } while (cs.moveToNext());
+//
+//            }
+//        }catch(SQLException e){
+//        }
+//        return null;
+//    }
+
 
     public double displayCal (Workout workout) {
         try {
