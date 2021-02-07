@@ -44,6 +44,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
     private Button ButtonSleep;
     private Button ButtonWake;
     private TextView txtSleepHours;
+    private TextView textView3;
     private String SleepDuration;
     private DateTimeFormatter format;
 
@@ -67,6 +68,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
         View root = inflater.inflate(R.layout.fragment_sleep, container, false);
         final TextView textView = root.findViewById(R.id.txt_sleep);
         ButtonSleep = root.findViewById(R.id.buttonSleepNow);
+        textView3 = root.findViewById(R.id.textView3);
         ButtonWake = root.findViewById(R.id.buttonWakeNow);
         txtSleepHours = root.findViewById(R.id.txtSleepHours);
         SleepViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -114,6 +116,7 @@ public class SleepFragment extends Fragment implements TimePickerDialog.OnTimeSe
 
 
                 txtSleepHours.setText(db.displaySleepHours().toString());
+                textView3.setText("5.23");
 
                 db.updateHourDiff (db.displaySleepHours().toString());
 

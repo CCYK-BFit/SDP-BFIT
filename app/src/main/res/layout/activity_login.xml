@@ -60,7 +60,7 @@
             android:hint="   Email"
             android:inputType="textEmailAddress"
             android:textColorHint="@color/grey"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@id/editEmail"
             app:layout_constraintStart_toStartOf="@id/editEmail"
             app:layout_constraintTop_toBottomOf="@+id/editEmail" />
@@ -86,7 +86,7 @@
             android:hint="  Password"
             android:inputType="textPassword"
             android:textColorHint="@color/grey"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@id/editPassword"
             app:layout_constraintStart_toStartOf="@id/editPassword"
             app:layout_constraintTop_toBottomOf="@+id/editPassword" />

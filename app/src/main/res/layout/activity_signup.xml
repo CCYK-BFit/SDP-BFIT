@@ -33,19 +33,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_black_view" />
 
-    <TextView
-        android:id="@+id/txtSignup"
-        android:layout_width="167dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Sign Up"
-        android:textColor="@color/white"
-        android:textSize="45sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtSignup"
+            android:layout_width="251dp"
+            android:layout_height="83dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Sign Up"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editEmail"
@@ -264,14 +265,14 @@
 
         <RadioButton
             android:id="@+id/radFemale"
-            android:layout_width="86dp"
-            android:layout_height="45dp"
+            android:layout_width="121dp"
+            android:layout_height="43dp"
             android:layout_marginTop="0.5dp"
+            android:onClick="radGenderClicked"
             android:text="Female"
             android:textSize="16sp"
-            android:onClick="radGenderClicked"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.412"
+            app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radMale" />
 

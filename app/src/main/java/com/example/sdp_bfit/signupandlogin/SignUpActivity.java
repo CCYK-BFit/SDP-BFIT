@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -109,15 +110,12 @@ public class SignUpActivity extends AppCompatActivity {
                     openInvalidEmailDialog();
                 } else if (db.showPassword(email) != "") {
                     openExistedEmailDialog();
-                } else if (password.length() < 8 || password.isEmpty()){
+                } else if (Password.getText().length() < 8 || TextUtils.isEmpty(Password.getText().toString())) {
                     Password.setError("Must contain more than 8 characters");
-                    Password.getText().clear();
-                }
-                else if (!Password.getText().toString().equals(ConfirmationPassword.getText().toString())) {
+                } else if (!Password.getText().toString().equals(ConfirmationPassword.getText().toString())) {
                     openPasswordUnmatchedDialog();
-                } else if (fname.length() <= 5 || fname.isEmpty()) {
-//                    FullName.setError("Must contain at least 5 characters");
-                    FullName.getText().clear();
+                } else if (TextUtils.isEmpty(FullName.getText().toString()) || FullName.getText().toString().length() <= 5) {
+                    FullName.setError("Must contain at least 5 characters");
                 } else {
                     addUser(v);
                 }

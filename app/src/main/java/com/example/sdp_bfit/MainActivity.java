@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         Notification periodNotification = new NotificationCompat.Builder(this, PERIODCHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_period)
                 .setContentTitle("PERIOD TRACKER")
-                .setContentText("Period is coming in 2 days.")
+                .setContentText("Period Notification is set")
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .build();

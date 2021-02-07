@@ -59,7 +59,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Welcome Back!"
+        android:text="@string/welcome_back"
         android:textColor="#ffffff"
         android:textSize="27sp"
         android:visibility="invisible"
@@ -67,7 +67,8 @@
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
         app:layout_constraintTop_toBottomOf="@+id/txt_dashboard"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="UnknownId" />
 
     <TextView
         android:id="@+id/txtUserName"
@@ -83,7 +84,7 @@
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.667"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtWelcome" />
 
@@ -219,9 +220,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
             android:fontFamily="@font/roboto"
-            android:text="hours"
+            android:text="kcal"
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView30"
@@ -367,7 +367,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_workout" />
+            app:srcCompat="@drawable/ic_workout"
+            tools:ignore="DuplicateIds" />
 
         <TextView
             android:id="@+id/textView2"
@@ -381,7 +382,8 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@+id/imageViewIconSleep"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
@@ -455,21 +457,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.032"
-            app:srcCompat="@drawable/ic_icon_carrot" />
+            app:srcCompat="@drawable/ic_icon_carrot"
+            tools:ignore="DuplicateIds" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Average calories"
+            android:text="Monthly average calories"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@+id/imageViewIconSleep"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
@@ -482,7 +485,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_begin="80dp"
             app:layout_constraintStart_toStartOf="@+id/card_breakfast"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="DuplicateIds" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -513,16 +517,16 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_icon_sleep" />
+            app:srcCompat="@drawable/ic_icon_sleep"
+            tools:ignore="DuplicateIds" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Average sleeping time"
+            android:text="Weekly average sleeping time"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"

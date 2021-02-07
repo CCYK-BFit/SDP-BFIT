@@ -94,7 +94,7 @@ public class Database extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(createPeriodTableStatement);
 
-        //sleep table
+
         //User Table
         String createUserTableStatement = "CREATE TABLE " +USER_PROFILE+ "(" +
                 USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -107,6 +107,7 @@ public class Database extends SQLiteOpenHelper {
 
         sqLiteDatabase.execSQL(createUserTableStatement);
 
+        //sleep table
         String createSleepTable = "CREATE TABLE " + SLEEP_TABLE+ "(" +
                 SLEEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 SLEEP_TIME + " TEXT," +
@@ -195,6 +196,7 @@ public class Database extends SQLiteOpenHelper {
 //        }
 //        return null;
 //    }
+
 
 
     public double displayCal (Workout workout) {

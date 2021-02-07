@@ -138,7 +138,7 @@ public class WorkoutFragment extends Fragment  implements TimePickerDialog.OnTim
         double caloriesCal = distanceCal * 55;
         String calories = String.format(Locale.CANADA, "%.2f", caloriesCal);
 //        String calories = String.valueOf(caloriesCal);
-        textView3.setText(distance.toString());
+        textView3.setText(calories.toString());
 
         //ListView
         list_item = root.findViewById(R.id.list_item);
