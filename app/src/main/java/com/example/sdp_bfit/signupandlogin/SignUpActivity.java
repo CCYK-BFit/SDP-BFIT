@@ -110,12 +110,16 @@ public class SignUpActivity extends AppCompatActivity {
                     openInvalidEmailDialog();
                 } else if (db.showPassword(email) != "") {
                     openExistedEmailDialog();
-                } else if (Password.getText().length() < 8 || TextUtils.isEmpty(Password.getText().toString())) {
+                } else if (Password.getText().length() < 8 || TextUtils.isEmpty(Password.getText().toString())){
                     Password.setError("Must contain more than 8 characters");
-                } else if (!Password.getText().toString().equals(ConfirmationPassword.getText().toString())) {
+//                    Password.getText().clear(); //got problem dont use
+                }
+                else if (!Password.getText().toString().equals(ConfirmationPassword.getText().toString())) {
                     openPasswordUnmatchedDialog();
                 } else if (TextUtils.isEmpty(FullName.getText().toString()) || FullName.getText().toString().length() <= 5) {
+//
                     FullName.setError("Must contain at least 5 characters");
+                    FullName.getText().clear();
                 } else {
                     addUser(v);
                 }

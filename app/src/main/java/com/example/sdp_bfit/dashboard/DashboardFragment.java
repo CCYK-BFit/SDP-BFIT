@@ -277,7 +277,6 @@ public class DashboardFragment extends Fragment  {
 //        dataSets1.add(dataset);
         //pass dataset into pie data
         PieData data = new PieData(dataset);
-
         //pass piedata into piechart
         pieChart.setData(data);
 
@@ -295,13 +294,13 @@ public class DashboardFragment extends Fragment  {
     }
     public void addSleepDataToChart(){
         ArrayList<Entry> entryList = new ArrayList<>();
-        entryList.add(new Entry(0f,5f,"Monday"));
-        entryList.add(new Entry(1f,6f,"Tuesday"));
-        entryList.add(new Entry(2f,4f,"Wednesday"));
-        entryList.add(new Entry(3f,7f,"Thursday"));
-        entryList.add(new Entry(4f,8f,"Friday"));
-        entryList.add(new Entry(5f,9f,"Saturday"));
-        entryList.add(new Entry(6f,4f,"Sunday"));
+        entryList.add(new Entry(0f,0f,"Monday"));
+        entryList.add(new Entry(1f,0f,"Tuesday"));
+        entryList.add(new Entry(2f,0f,"Wednesday"));
+        entryList.add(new Entry(3f,0f,"Thursday"));
+        entryList.add(new Entry(4f,0f,"Friday"));
+        entryList.add(new Entry(5f,0f,"Saturday"));
+        entryList.add(new Entry(6f,0f,"Sunday"));
         ArrayList<String> weekDay = new ArrayList<>();
         weekDay.add("M");
         weekDay.add("T");
